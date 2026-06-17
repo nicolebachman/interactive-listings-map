@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Listings Map</title>
+  <link
+    href="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.css"
+    rel="stylesheet"
+  >
+  <style>
+    :root {
+      --bg: #f4efe7;
+      --panel: rgba(255, 252, 247, 0.94);
+      --ink: #1f2a33;
+      --muted: #63717d;
+      --accent: #d34b32;
+      --accent-dark: #982f20;
+      --border: rgba(31, 42, 51, 0.12);
+      --shadow: 0 24px 60px rgba(31, 42, 51, 0.18);
+      --page-gutter: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: var(--page-gutter) 0;
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(211, 75, 50, 0.18), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(52, 98, 123, 0.16), transparent 24%),
+        var(--bg);
+    }
+
+    .page {
+      width: min(1200px, calc(100% - (var(--page-gutter) * 2)));
+      margin: 0 auto;
+      min-height: calc(100vh - (var(--page-gutter) * 2));
+      min-height: calc(100dvh - (var(--page-gutter) * 2));
+    }
+
+    .card {
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+      border: 1px solid var(--border);
+      border-radius: 0;
+      overflow: hidden;
+      background: rgba(255, 252, 247, 0.7);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      min-height: 100%;
+      height: min(780px, calc(100vh - (var(--page-gutter) * 2)));
+      height: min(780px, calc(100dvh - (var(--page-gutter) * 2)));
+    }
+
+    .page-header {
+      padding: 14px 20px 12px;
+      background: rgba(255, 252, 247, 0.7);
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      line-height: 1;
+      font-weight: 600;
+    }
+
+    #map {
+      display: block;
+      width: 100%;
+      min-height: 0;
+      height: 100%;
+      border-radius: 0;
+    }
+
+    #map .mapboxgl-canvas-container,
+    #map .mapboxgl-canvas {
+      height: 100%;
+    }
+
+    #map canvas {
+      cursor: grab;
+    }
+
+    #map.pin-hover canvas {
+      cursor: pointer;
+    }
+
+    #map canvas:active {
+      cursor: grabbing;
+    }
+
+    .mapboxgl-popup {
+      max-width: min(320px, calc(100vw - 32px));
+    }
+
+    .mapboxgl-popup-content {
+      padding: 13px 40px 13px 14px;
+      border-radius: 14px;
+      box-shadow: 0 18px 40px rgba(31, 42, 51, 0.16);
+      max-height: min(300px, calc(100vh - 180px));
+      overflow: auto;
+    }
+
+    .mapboxgl-popup-close-button {
+      top: 6px;
+      right: 6px;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .popup h3 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 1.25;
+      letter-spacing: 0.01em;
+      max-width: 26ch;
+    }
+
+    .popup-broker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 12px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--ink);
+    }
+
+    .broker-value {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .broker-dot {
+      width: 0.8rem;
+      height: 0.8rem;
+      border-radius: 50%;
+      flex: 0 0 auto;
+      border: 2px solid rgba(255, 248, 242, 0.95);
+      box-shadow: 0 0 0 1px rgba(31, 42, 51, 0.14);
+    }
+
+    .popup dl {
+      margin: 0;
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      gap: 6px 10px;
+      font-size: 0.8rem;
+      line-height: 1.32;
+    }
+
+    .popup dt {
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .popup dd {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .error {
+      margin-top: 12px;
+      max-width: 32rem;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(152, 47, 32, 0.18);
+      background: rgba(211, 75, 50, 0.08);
+      color: var(--accent-dark);
+      font-family: Arial, sans-serif;
+      font-size: 0.92rem;
+      line-height: 1.45;
+      display: none;
+    }
+
+    @media (max-width: 900px) {
+      :root {
+        --page-gutter: 10px;
+      }
+
+      .page {
+        width: min(100%, calc(100% - (var(--page-gutter) * 2)));
+        margin: 0 auto;
+        min-height: calc(100vh - (var(--page-gutter) * 2));
+        min-height: calc(100dvh - (var(--page-gutter) * 2));
+      }
+
+      .card {
+        min-height: calc(100vh - (var(--page-gutter) * 2));
+        min-height: calc(100dvh - (var(--page-gutter) * 2));
+        height: auto;
+      }
+
+      .page-header {
+        padding: 12px 16px 10px;
+      }
+
+      #map {
+        height: auto;
+        min-height: clamp(320px, calc(100dvh - 120px), 720px);
+      }
+    }
+  </style>
+</head>
+  <body>
+  <div class="page">
+    <div class="card">
+      <header class="page-header">
+        <p class="eyebrow">Global Listings</p>
+        <h1>Broker Map</h1>
+        <div id="error" class="error"></div>
+      </header>
+      <div id="map" aria-label="Map of property listings"></div>
+    </div>
+  </div>
+
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.js"></script>
+  <script>
+    mapboxgl.accessToken = "pk.eyJ1Ijoibmljb2xlYmFjaG1hbiIsImEiOiJjbXE5eHl1MGYwMGM2MnJwbm13YjJveGRuIn0.E1WbrTh7gLcMrzhnWdSI5A";
+
+    const map = new mapboxgl.Map({
+      container: "map",
+      style: "mapbox://styles/mapbox/streets-v12",
+      center: [-15, 20],
+      zoom: 1.35,
+      projection: "mercator"
+    });
+
+    const navigationControl = new mapboxgl.NavigationControl();
+    let currentControlPosition = null;
+
+    function syncNavigationControlPosition() {
+      const nextPosition = window.innerWidth <= 900 ? "bottom-right" : "top-right";
+      if (nextPosition === currentControlPosition) {
+        return;
+      }
+
+      if (currentControlPosition) {
+        map.removeControl(navigationControl);
+      }
+
+      map.addControl(navigationControl, nextPosition);
+      currentControlPosition = nextPosition;
+    }
+
+    syncNavigationControlPosition();
+    window.addEventListener("resize", syncNavigationControlPosition);
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function hashBrokerName(value) {
+      let hash = 0;
+      const text = String(value || "Unknown Broker");
+
+      for (let index = 0; index < text.length; index += 1) {
+        hash = ((hash << 5) - hash + text.charCodeAt(index)) >>> 0;
+      }
+
+      return hash;
+    }
+
+    function brokerColor(value) {
+      const goldenAngle = 137.508;
+      const hue = Math.round((hashBrokerName(value) * goldenAngle) % 360);
+      return `hsl(${hue}, 65%, 50%)`;
+    }
+
+    function hueDistance(a, b) {
+      const diff = Math.abs(a - b) % 360;
+      return Math.min(diff, 360 - diff);
+    }
+
+    function buildBrokerColorMap(features) {
+      const brokerNames = Array.from(
+        new Set(
+          features
+            .map((feature) => feature.properties?.broker_name || feature.properties?.Owner || "")
+            .filter(Boolean)
+        )
+      ).sort((a, b) => a.localeCompare(b));
+
+      const lightnessSteps = [50, 42, 58, 34, 66];
+      const assigned = [];
+      const colorMap = new Map();
+
+      for (const brokerName of brokerNames) {
+        const baseHue = Math.round((hashBrokerName(brokerName) * 137.508) % 360);
+        let chosenLightness = lightnessSteps[0];
+
+        for (const candidateLightness of lightnessSteps) {
+          const conflicts = assigned.some((existing) => {
+            const tooCloseInHue = hueDistance(baseHue, existing.hue) < 18;
+            const tooCloseInLightness = Math.abs(candidateLightness - existing.lightness) < 10;
+            return tooCloseInHue && tooCloseInLightness;
+          });
+
+          if (!conflicts) {
+            chosenLightness = candidateLightness;
+            break;
+          }
+        }
+
+        assigned.push({
+          brokerName,
+          hue: baseHue,
+          lightness: chosenLightness
+        });
+
+        colorMap.set(brokerName, `hsl(${baseHue}, 65%, ${chosenLightness}%)`);
+      }
+
+      return colorMap;
+    }
+
+    function pickFirstNonEmpty(properties, keys) {
+      for (const key of keys) {
+        const value = properties?.[key];
+        if (value === 0 || value === "0") {
+          return value;
+        }
+
+        if (value !== undefined && value !== null && String(value).trim() !== "") {
+          return value;
+        }
+      }
+
+      return "";
+    }
+
+    function formatCurrency(value) {
+      const text = String(value ?? "").trim();
+      if (!text) {
+        return "";
+      }
+
+      const digitsOnly = text.replace(/,/g, "");
+      if (!/^\d+(\.\d+)?$/.test(digitsOnly)) {
+        return text;
+      }
+
+      const amount = Number(digitsOnly);
+      if (!Number.isFinite(amount)) {
+        return text;
+      }
+
+      return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        maximumFractionDigits: 0
+      }).format(amount);
+    }
+
+    function compactDealName(value) {
+      const text = String(value ?? "").trim();
+      if (!text) {
+        return "";
+      }
+
+      const parts = text.split(/\s+-\s+/).map((part) => part.trim()).filter(Boolean);
+      if (parts.length >= 3) {
+        return parts[parts.length - 1];
+      }
+
+      return text;
+    }
+
+    function popupMarkup(properties) {
+      const brokerName = pickFirstNonEmpty(properties, ["broker_name", "Owner"]) || "Unknown Broker";
+      const markerColor = properties.marker_color || brokerColor(brokerName);
+      const address = pickFirstNonEmpty(properties, [
+        "address",
+        "street_address",
+        "Deal: Deal Name"
+      ]) || "Listing Details";
+      const dealName = compactDealName(
+        pickFirstNonEmpty(properties, ["deal_name", "Deal: Deal Name"])
+      );
+      const recordType = pickFirstNonEmpty(properties, ["record_type", "Deal: Record Type"]);
+      const askingPrice = formatCurrency(
+        pickFirstNonEmpty(properties, ["asking_price", "Asking Price"])
+      );
+      const leaseRate = pickFirstNonEmpty(properties, ["lease_rate", "Lease Rate"]);
+      const landlordCompany = pickFirstNonEmpty(properties, [
+        "landlord_company",
+        "Landlord Company/Seller Company"
+      ]);
+      const squareFootage = pickFirstNonEmpty(properties, ["square_footage", "Square Footage"]);
+      const leaseSquareFootage = pickFirstNonEmpty(properties, [
+        "lease_square_footage",
+        "Lease Square Footage"
+      ]);
+      const effectiveDate = pickFirstNonEmpty(properties, [
+        "listing_effective_date",
+        "Listing Effective Date"
+      ]);
+      const expirationDate = pickFirstNonEmpty(properties, [
+        "listing_expiration_date",
+        "Listing Expiration Date"
+      ]);
+      const isLease = String(recordType).trim().toLowerCase() === "lease";
+      const fields = [
+        ["Deal Name", dealName],
+        ["Record Type", recordType],
+        ["Asking Price", askingPrice],
+        ["Landlord/Seller", landlordCompany],
+        ["Square Footage", squareFootage],
+        ["Effective Date", effectiveDate],
+        ["Expiration Date", expirationDate]
+      ];
+
+      if (isLease) {
+        fields.splice(3, 0, ["Lease Rate", leaseRate]);
+        fields.splice(6, 0, ["Lease Sq Ft", leaseSquareFootage]);
+      }
+
+      return `
+        <div class="popup">
+          <h3>${escapeHtml(address)}</h3>
+          <div class="popup-broker">
+            <span class="broker-dot" style="background:${escapeHtml(markerColor)}" aria-hidden="true"></span>
+            <span>${escapeHtml(brokerName)}</span>
+          </div>
+          <dl>
+            ${fields.map(([label, value, isHtml]) => `
+              <dt>${escapeHtml(label)}</dt>
+              <dd>${isHtml ? value : escapeHtml(value || "N/A")}</dd>
+            `).join("")}
+          </dl>
+        </div>
+      `;
+    }
+
+    function showError(message) {
+      const errorEl = document.getElementById("error");
+      errorEl.textContent = message;
+      errorEl.style.display = "block";
+    }
+
+    async function loadListings() {
+      try {
+        const response = await fetch("./locations.geojson");
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        const geojson = await response.json();
+        if (!Array.isArray(geojson.features)) {
+          throw new Error("Invalid GeoJSON structure.");
+        }
+
+        const pointFeatures = geojson.features.filter(
+          (feature) => feature.geometry?.type === "Point"
+        );
+
+        const brokerColorMap = buildBrokerColorMap(pointFeatures);
+
+        pointFeatures.forEach((feature) => {
+          const brokerName =
+            feature.properties?.broker_name ||
+            feature.properties?.Owner ||
+            "Unknown Broker";
+
+          feature.properties = {
+            ...feature.properties,
+            marker_color: brokerColorMap.get(brokerName) || brokerColor(brokerName)
+          };
+        });
+
+        const bounds = new mapboxgl.LngLatBounds();
+        pointFeatures.forEach((feature) => {
+          bounds.extend(feature.geometry.coordinates);
+        });
+
+        map.addSource("listings", {
+          type: "geojson",
+          data: {
+            ...geojson,
+            features: pointFeatures
+          }
+        });
+
+        map.addLayer({
+          id: "listing-pin-shadow",
+          type: "circle",
+          source: "listings",
+          paint: {
+            "circle-radius": 10,
+            "circle-color": "rgba(31, 42, 51, 0.08)",
+            "circle-blur": 0.55,
+            "circle-translate": [0, 4]
+          }
+        });
+
+        map.addLayer({
+          id: "listing-pin",
+          type: "circle",
+          source: "listings",
+          paint: {
+            "circle-radius": 7,
+            "circle-color": ["coalesce", ["get", "marker_color"], "#d34b32"],
+            "circle-stroke-width": 0.5,
+            "circle-stroke-color": "#fff8f2"
+          }
+        });
+
+        let popup = null;
+
+        function getSafePadding() {
+          const isMobile = window.innerWidth <= 900;
+          const horizontal = isMobile ? 14 : 24;
+          const top = isMobile ? 6 : 24;
+          const bottom = isMobile ? 8 : 28;
+          return { top, right: horizontal, bottom, left: horizontal };
+        }
+
+        function keepPopupInView() {
+          if (!popup) {
+            return;
+          }
+
+          const popupEl = popup.getElement();
+          if (!popupEl) {
+            return;
+          }
+
+          const mapRect = map.getContainer().getBoundingClientRect();
+          const popupRect = popupEl.getBoundingClientRect();
+          const padding = getSafePadding();
+
+          let dx = 0;
+          let dy = 0;
+
+          if (popupRect.left < mapRect.left + padding.left) {
+            dx = mapRect.left + padding.left - popupRect.left;
+          } else if (popupRect.right > mapRect.right - padding.right) {
+            dx = mapRect.right - padding.right - popupRect.right;
+          }
+
+          if (popupRect.top < mapRect.top + padding.top) {
+            dy = mapRect.top + padding.top - popupRect.top;
+          } else if (popupRect.bottom > mapRect.bottom - padding.bottom) {
+            dy = mapRect.bottom - padding.bottom - popupRect.bottom;
+          }
+
+          if (dx !== 0 || dy !== 0) {
+            map.panBy([-dx, -dy], {
+              duration: 450,
+              essential: true
+            });
+          }
+
+          return { dx, dy, popupRect, mapRect, padding };
+        }
+
+        function createPopupForPoint(point) {
+          const isMobile = window.innerWidth <= 900;
+          const mapHeight = map.getContainer().clientHeight;
+          const anchor = isMobile
+            ? (point.y < mapHeight * 0.42 ? "top" : "bottom")
+            : undefined;
+          const offset = isMobile ? 10 : 18;
+
+          if (popup) {
+            popup.remove();
+          }
+
+          const popupOptions = {
+            closeButton: true,
+            closeOnClick: false,
+            offset,
+            maxWidth: "min(320px, calc(100vw - 32px))"
+          };
+
+          if (anchor) {
+            popupOptions.anchor = anchor;
+          }
+
+          popup = new mapboxgl.Popup(popupOptions);
+
+          return popup;
+        }
+
+        function maybeFlipPopupAnchor(result, feature, point) {
+          if (!popup || !result) {
+            return;
+          }
+
+          const isMobile = window.innerWidth <= 900;
+          if (!isMobile) {
+            return;
+          }
+
+          const overTop = result.popupRect.top < result.mapRect.top + result.padding.top;
+          const overBottom = result.popupRect.bottom > result.mapRect.bottom - result.padding.bottom;
+
+          if (!overTop && !overBottom) {
+            return;
+          }
+
+          const nextAnchor = popup.options.anchor === "top" ? "bottom" : "top";
+          const nextPopup = new mapboxgl.Popup({
+            anchor: nextAnchor,
+            closeButton: true,
+            closeOnClick: false,
+            offset: 10,
+            maxWidth: "min(320px, calc(100vw - 32px))"
+          });
+
+          popup.remove();
+          popup = nextPopup
+            .setLngLat(feature.geometry.coordinates)
+            .setHTML(popupMarkup(feature.properties || {}))
+            .addTo(map);
+
+          window.requestAnimationFrame(() => {
+            keepPopupInView();
+          });
+        }
+
+        map.on("click", "listing-pin", (event) => {
+          const feature = event.features?.[0];
+          if (!feature) {
+            return;
+          }
+
+          createPopupForPoint(event.point)
+            .setLngLat(feature.geometry.coordinates)
+            .setHTML(popupMarkup(feature.properties || {}))
+            .addTo(map);
+
+          window.requestAnimationFrame(() => {
+            const result = keepPopupInView();
+            maybeFlipPopupAnchor(result, feature, event.point);
+          });
+        });
+
+        map.on("click", (event) => {
+          const clickedPins = map.queryRenderedFeatures(event.point, {
+            layers: ["listing-pin"]
+          });
+
+          if (clickedPins.length === 0 && popup) {
+            popup.remove();
+            popup = null;
+          }
+        });
+
+        map.on("mouseenter", "listing-pin", () => {
+          map.getContainer().classList.add("pin-hover");
+        });
+
+        map.on("mouseleave", "listing-pin", () => {
+          map.getContainer().classList.remove("pin-hover");
+        });
+
+        if (!bounds.isEmpty()) {
+          map.fitBounds(bounds, {
+            padding: { top: 60, right: 60, bottom: 60, left: 60 },
+            maxZoom: 12,
+            duration: 0
+          });
+        }
+      } catch (error) {
+        console.error("Failed to load listings:", error);
+        showError(
+          "Could not load locations.geojson. If you opened this file directly in the browser, serve the folder locally with a simple web server first."
+        );
+      }
+    }
+
+    map.on("load", loadListings);
+  </script>
+</body>
+</html>

@@ -1,0 +1,1825 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Holmes Davis",
+        "Deal: Deal Name": "Maumelle, AR - 400 Murphy Drive - Listing 25",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "50000000",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Open Path Investments",
+        "Listing Effective Date": "3/28/2025",
+        "Listing Expiration Date": "3/27/2027",
+        "Square Footage": "599465",
+        "Lease Square Footage": "",
+        "broker_name": "Holmes Davis",
+        "address": "400 Murphy Drive, Maumelle, AR",
+        "city_state": "Maumelle, AR",
+        "street_address": "400 Murphy Drive",
+        "deal_name": "Maumelle, AR - 400 Murphy Drive - Listing 25",
+        "record_type": "Sale",
+        "asking_price": "50000000",
+        "lease_rate": "",
+        "landlord_company": "Open Path Investments",
+        "listing_effective_date": "3/28/2025",
+        "listing_expiration_date": "3/27/2027",
+        "square_footage": "599465",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -92.394058,
+          34.8623
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Holmes Davis",
+        "Deal: Deal Name": "Little Rock, AR - 7103 Zeuber Road - Listing 25",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "45500000",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "AMG, Inc.",
+        "Listing Effective Date": "1/24/2025",
+        "Listing Expiration Date": "6/23/2026",
+        "Square Footage": "537845",
+        "Lease Square Footage": "",
+        "broker_name": "Holmes Davis",
+        "address": "7103 Zeuber Road, Little Rock, AR",
+        "city_state": "Little Rock, AR",
+        "street_address": "7103 Zeuber Road",
+        "deal_name": "Little Rock, AR - 7103 Zeuber Road - Listing 25",
+        "record_type": "Sale",
+        "asking_price": "45500000",
+        "lease_rate": "",
+        "landlord_company": "AMG, Inc.",
+        "listing_effective_date": "1/24/2025",
+        "listing_expiration_date": "6/23/2026",
+        "square_footage": "537845",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -92.200435,
+          34.69676
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Zach Binswanger",
+        "Deal: Deal Name": "Frazeysburg, OH - 5685 Eco Parkway - Listing 24",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "44660000",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Malouf Sleep",
+        "Listing Effective Date": "9/10/2024",
+        "Listing Expiration Date": "9/9/2026",
+        "Square Footage": "812000",
+        "Lease Square Footage": "",
+        "broker_name": "Zach Binswanger",
+        "address": "5685 Eco Parkway, Frazeysburg, OH",
+        "city_state": "Frazeysburg, OH",
+        "street_address": "5685 Eco Parkway",
+        "deal_name": "Frazeysburg, OH - 5685 Eco Parkway - Listing 24",
+        "record_type": "Sale",
+        "asking_price": "44660000",
+        "lease_rate": "",
+        "landlord_company": "Malouf Sleep",
+        "listing_effective_date": "9/10/2024",
+        "listing_expiration_date": "9/9/2026",
+        "square_footage": "812000",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.083455,
+          40.142497
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Chris Pennington",
+        "Deal: Deal Name": "Philadelphia, PA - 1100 & 1300 S Christopher Columbus Blvd - Listing 25",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "40000000",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Tower Investments, Inc.",
+        "Listing Effective Date": "9/18/2025",
+        "Listing Expiration Date": "9/16/2026",
+        "Square Footage": "128529",
+        "Lease Square Footage": "",
+        "broker_name": "Chris Pennington",
+        "address": "1100 & 1300 S Christopher Columbus Blvd, Philadelphia, PA",
+        "city_state": "Philadelphia, PA",
+        "street_address": "1100 & 1300 S Christopher Columbus Blvd",
+        "deal_name": "Philadelphia, PA - 1100 & 1300 S Christopher Columbus Blvd - Listing 25",
+        "record_type": "Sale",
+        "asking_price": "40000000",
+        "lease_rate": "",
+        "landlord_company": "Tower Investments, Inc.",
+        "listing_effective_date": "9/18/2025",
+        "listing_expiration_date": "9/16/2026",
+        "square_footage": "128529",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.144515,
+          39.932323
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Holmes Davis",
+        "Deal: Deal Name": "Sherman, TX - 1400 West FM 1417 - Listing 25",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "37500000",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Preston Forrest Capital",
+        "Listing Effective Date": "10/13/2025",
+        "Listing Expiration Date": "10/12/2026",
+        "Square Footage": "515654",
+        "Lease Square Footage": "",
+        "broker_name": "Holmes Davis",
+        "address": "1400 West FM 1417, Sherman, TX",
+        "city_state": "Sherman, TX",
+        "street_address": "1400 West FM 1417",
+        "deal_name": "Sherman, TX - 1400 West FM 1417 - Listing 25",
+        "record_type": "Sale",
+        "asking_price": "37500000",
+        "lease_rate": "",
+        "landlord_company": "Preston Forrest Capital",
+        "listing_effective_date": "10/13/2025",
+        "listing_expiration_date": "10/12/2026",
+        "square_footage": "515654",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -96.623198,
+          33.588084
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Holmes Davis",
+        "Deal: Deal Name": "Little Rock, AR - 8200 Frazier Pike - Listing 25",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "32000000",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Welspun Pipes, Inc.",
+        "Listing Effective Date": "10/14/2025",
+        "Listing Expiration Date": "10/13/2026",
+        "Square Footage": "470000",
+        "Lease Square Footage": "",
+        "broker_name": "Holmes Davis",
+        "address": "8200 Frazier Pike, Little Rock, AR",
+        "city_state": "Little Rock, AR",
+        "street_address": "8200 Frazier Pike",
+        "deal_name": "Little Rock, AR - 8200 Frazier Pike - Listing 25",
+        "record_type": "Sale",
+        "asking_price": "32000000",
+        "lease_rate": "",
+        "landlord_company": "Welspun Pipes, Inc.",
+        "listing_effective_date": "10/14/2025",
+        "listing_expiration_date": "10/13/2026",
+        "square_footage": "470000",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -92.183194,
+          34.705268
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Chris Pennington",
+        "Deal: Deal Name": "Philadelphia, PA - 765 S Christopher Columbus Blvd - Piers 38/39 - Listing 25",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "25000000",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Tower Investments, Inc.",
+        "Listing Effective Date": "9/18/2025",
+        "Listing Expiration Date": "10/16/2026",
+        "Square Footage": "180000",
+        "Lease Square Footage": "",
+        "broker_name": "Chris Pennington",
+        "address": "765 S Christopher Columbus Blvd, Philadelphia, PA",
+        "city_state": "Philadelphia, PA",
+        "street_address": "765 S Christopher Columbus Blvd",
+        "deal_name": "Philadelphia, PA - 765 S Christopher Columbus Blvd - Piers 38/39 - Listing 25",
+        "record_type": "Sale",
+        "asking_price": "25000000",
+        "lease_rate": "",
+        "landlord_company": "Tower Investments, Inc.",
+        "listing_effective_date": "9/18/2025",
+        "listing_expiration_date": "10/16/2026",
+        "square_footage": "180000",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.14094,
+          39.93601
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "David Barber",
+        "Deal: Deal Name": "Leesburg, AL - 400 Industrial Blvd - Listing 23",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "18300000",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Parkdale America, LLC",
+        "Listing Effective Date": "9/11/2023",
+        "Listing Expiration Date": "12/31/2026",
+        "Square Footage": "474642",
+        "Lease Square Footage": "",
+        "broker_name": "David Barber",
+        "address": "400 Industrial Blvd, Leesburg, AL",
+        "city_state": "Leesburg, AL",
+        "street_address": "400 Industrial Blvd",
+        "deal_name": "Leesburg, AL - 400 Industrial Blvd - Listing 23",
+        "record_type": "Sale",
+        "asking_price": "18300000",
+        "lease_rate": "",
+        "landlord_company": "Parkdale America, LLC",
+        "listing_effective_date": "9/11/2023",
+        "listing_expiration_date": "12/31/2026",
+        "square_footage": "474642",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -85.76344,
+          34.184368
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Doug Faris",
+        "Deal: Deal Name": "Mocksville, NC - 212 Quality Drive - Listing 25",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "10895000",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Scott Bader",
+        "Listing Effective Date": "7/29/2025",
+        "Listing Expiration Date": "7/29/2026",
+        "Square Footage": "108960",
+        "Lease Square Footage": "",
+        "broker_name": "Doug Faris",
+        "address": "212 Quality Drive, Mocksville, NC",
+        "city_state": "Mocksville, NC",
+        "street_address": "212 Quality Drive",
+        "deal_name": "Mocksville, NC - 212 Quality Drive - Listing 25",
+        "record_type": "Sale",
+        "asking_price": "10895000",
+        "lease_rate": "",
+        "landlord_company": "Scott Bader",
+        "listing_effective_date": "7/29/2025",
+        "listing_expiration_date": "7/29/2026",
+        "square_footage": "108960",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.60514,
+          35.935844
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Chris Pennington",
+        "Deal: Deal Name": "Bridgeville, DE - 7494 Federalsburg Road - Listing 25",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "10500000",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Simmons Pet Food",
+        "Listing Effective Date": "11/7/2025",
+        "Listing Expiration Date": "11/6/2026",
+        "Square Footage": "240258",
+        "Lease Square Footage": "",
+        "broker_name": "Chris Pennington",
+        "address": "7494 Federalsburg Road, Bridgeville, DE",
+        "city_state": "Bridgeville, DE",
+        "street_address": "7494 Federalsburg Road",
+        "deal_name": "Bridgeville, DE - 7494 Federalsburg Road - Listing 25",
+        "record_type": "Sale",
+        "asking_price": "10500000",
+        "lease_rate": "",
+        "landlord_company": "Simmons Pet Food",
+        "listing_effective_date": "11/7/2025",
+        "listing_expiration_date": "11/6/2026",
+        "square_footage": "240258",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.60797,
+          38.74109
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Matthew Fennelly",
+        "Deal: Deal Name": "Trenton, NJ - 1659-1700 Calhoun Street - Listing 26",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "8500000",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Compass Display & Promotion Company",
+        "Listing Effective Date": "5/22/2026",
+        "Listing Expiration Date": "5/21/2027",
+        "Square Footage": "",
+        "Lease Square Footage": "",
+        "broker_name": "Matthew Fennelly",
+        "address": "1659-1700 Calhoun Street, Trenton, NJ",
+        "city_state": "Trenton, NJ",
+        "street_address": "1659-1700 Calhoun Street",
+        "deal_name": "Trenton, NJ - 1659-1700 Calhoun Street - Listing 26",
+        "record_type": "Sale",
+        "asking_price": "8500000",
+        "lease_rate": "",
+        "landlord_company": "Compass Display & Promotion Company",
+        "listing_effective_date": "5/22/2026",
+        "listing_expiration_date": "5/21/2027",
+        "square_footage": "",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.766782,
+          40.230825
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Chris Pennington",
+        "Deal: Deal Name": "Philadelphia, PA - 3111 Grays Ferry Avenue - Listing 25",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "7500000",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Ciocca Automotive",
+        "Listing Effective Date": "9/15/2025",
+        "Listing Expiration Date": "9/14/2026",
+        "Square Footage": "10000",
+        "Lease Square Footage": "",
+        "broker_name": "Chris Pennington",
+        "address": "3111 Grays Ferry Avenue, Philadelphia, PA",
+        "city_state": "Philadelphia, PA",
+        "street_address": "3111 Grays Ferry Avenue",
+        "deal_name": "Philadelphia, PA - 3111 Grays Ferry Avenue - Listing 25",
+        "record_type": "Sale",
+        "asking_price": "7500000",
+        "lease_rate": "",
+        "landlord_company": "Ciocca Automotive",
+        "listing_effective_date": "9/15/2025",
+        "listing_expiration_date": "9/14/2026",
+        "square_footage": "10000",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.195795,
+          39.939713
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Doug Faris",
+        "Deal: Deal Name": "Gretna, VA - 281 Industrial Drive - Listing 25",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "7250000",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "NAPA Holdings, LLC",
+        "Listing Effective Date": "9/24/2025",
+        "Listing Expiration Date": "9/24/2026",
+        "Square Footage": "135000",
+        "Lease Square Footage": "",
+        "broker_name": "Doug Faris",
+        "address": "281 Industrial Drive, Gretna, VA",
+        "city_state": "Gretna, VA",
+        "street_address": "281 Industrial Drive",
+        "deal_name": "Gretna, VA - 281 Industrial Drive - Listing 25",
+        "record_type": "Sale",
+        "asking_price": "7250000",
+        "lease_rate": "",
+        "landlord_company": "NAPA Holdings, LLC",
+        "listing_effective_date": "9/24/2025",
+        "listing_expiration_date": "9/24/2026",
+        "square_footage": "135000",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -79.375077,
+          36.947416
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Nick Biedron",
+        "Deal: Deal Name": "Paterson, NJ - 25 Lake Street - Listing 25",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "7000000",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "AMB Enterprises, LLC",
+        "Listing Effective Date": "12/16/2025",
+        "Listing Expiration Date": "12/15/2026",
+        "Square Footage": "40000",
+        "Lease Square Footage": "",
+        "broker_name": "Nick Biedron",
+        "address": "25 Lake Street, Paterson, NJ",
+        "city_state": "Paterson, NJ",
+        "street_address": "25 Lake Street",
+        "deal_name": "Paterson, NJ - 25 Lake Street - Listing 25",
+        "record_type": "Sale",
+        "asking_price": "7000000",
+        "lease_rate": "",
+        "landlord_company": "AMB Enterprises, LLC",
+        "listing_effective_date": "12/16/2025",
+        "listing_expiration_date": "12/15/2026",
+        "square_footage": "40000",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.162692,
+          40.919395
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Crawford Standard",
+        "Deal: Deal Name": "Humboldt, TN - 7 American Woodmark Drive - Listing 26",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "6260000",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Realty Income",
+        "Listing Effective Date": "4/23/2026",
+        "Listing Expiration Date": "4/30/2027",
+        "Square Footage": "74707",
+        "Lease Square Footage": "",
+        "broker_name": "Crawford Standard",
+        "address": "7 American Woodmark Drive, Humboldt, TN",
+        "city_state": "Humboldt, TN",
+        "street_address": "7 American Woodmark Drive",
+        "deal_name": "Humboldt, TN - 7 American Woodmark Drive - Listing 26",
+        "record_type": "Sale",
+        "asking_price": "6260000",
+        "lease_rate": "",
+        "landlord_company": "Realty Income",
+        "listing_effective_date": "4/23/2026",
+        "listing_expiration_date": "4/30/2027",
+        "square_footage": "74707",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -88.937067,
+          35.82488
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Holmes Davis",
+        "Deal: Deal Name": "Osceola, AR - 2221 East State Highway 198 - Listing 25",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "5900000",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Viskase Companies Inc.",
+        "Listing Effective Date": "9/10/2025",
+        "Listing Expiration Date": "9/9/2026",
+        "Square Footage": "225000",
+        "Lease Square Footage": "",
+        "broker_name": "Holmes Davis",
+        "address": "2221 East State Highway 198, Osceola, AR",
+        "city_state": "Osceola, AR",
+        "street_address": "2221 East State Highway 198",
+        "deal_name": "Osceola, AR - 2221 East State Highway 198 - Listing 25",
+        "record_type": "Sale",
+        "asking_price": "5900000",
+        "lease_rate": "",
+        "landlord_company": "Viskase Companies Inc.",
+        "listing_effective_date": "9/10/2025",
+        "listing_expiration_date": "9/9/2026",
+        "square_footage": "225000",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -89.939546,
+          35.65226
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Chris Pennington",
+        "Deal: Deal Name": "Levittown, PA - 8400 Route 13 - Listing 26",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "5000000",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Danielle Damaghi",
+        "Listing Effective Date": "5/14/2026",
+        "Listing Expiration Date": "11/13/2026",
+        "Square Footage": "56523",
+        "Lease Square Footage": "",
+        "broker_name": "Chris Pennington",
+        "address": "8400 Route 13, Levittown, PA",
+        "city_state": "Levittown, PA",
+        "street_address": "8400 Route 13",
+        "deal_name": "Levittown, PA - 8400 Route 13 - Listing 26",
+        "record_type": "Sale",
+        "asking_price": "5000000",
+        "lease_rate": "",
+        "landlord_company": "Danielle Damaghi",
+        "listing_effective_date": "5/14/2026",
+        "listing_expiration_date": "11/13/2026",
+        "square_footage": "56523",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.814601,
+          40.143
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Carson Erard",
+        "Deal: Deal Name": "Hutchinson, KS - 3401 East 4th Avenue - Listing 25",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "5000000",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "KMS Inc.",
+        "Listing Effective Date": "10/28/2025",
+        "Listing Expiration Date": "10/27/2026",
+        "Square Footage": "338931",
+        "Lease Square Footage": "",
+        "broker_name": "Carson Erard",
+        "address": "3401 East 4th Avenue, Hutchinson, KS",
+        "city_state": "Hutchinson, KS",
+        "street_address": "3401 East 4th Avenue",
+        "deal_name": "Hutchinson, KS - 3401 East 4th Avenue - Listing 25",
+        "record_type": "Sale",
+        "asking_price": "5000000",
+        "lease_rate": "",
+        "landlord_company": "KMS Inc.",
+        "listing_effective_date": "10/28/2025",
+        "listing_expiration_date": "10/27/2026",
+        "square_footage": "338931",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.87031,
+          38.054249
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "David Barber",
+        "Deal: Deal Name": "Opelika, AL - 1800 Crawford Road - Listing 22",
+        "Deal: Record Type": "Lease",
+        "Asking Price": "",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Reich Brothers, LLC",
+        "Listing Effective Date": "12/20/2022",
+        "Listing Expiration Date": "1/7/2027",
+        "Square Footage": "1300000",
+        "Lease Square Footage": "",
+        "broker_name": "David Barber",
+        "address": "1800 Crawford Road, Opelika, AL",
+        "city_state": "Opelika, AL",
+        "street_address": "1800 Crawford Road",
+        "deal_name": "Opelika, AL - 1800 Crawford Road - Listing 22",
+        "record_type": "Lease",
+        "asking_price": "",
+        "lease_rate": "",
+        "landlord_company": "Reich Brothers, LLC",
+        "listing_effective_date": "12/20/2022",
+        "listing_expiration_date": "1/7/2027",
+        "square_footage": "1300000",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -85.339321,
+          32.60797
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Tim Pennington",
+        "Deal: Deal Name": "Greencastle, PA - 12000 Molly Pitcher Highway - Listing 26",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Matrix Realty, Inc.",
+        "Listing Effective Date": "1/22/2026",
+        "Listing Expiration Date": "10/21/2026",
+        "Square Footage": "1033470",
+        "Lease Square Footage": "",
+        "broker_name": "Tim Pennington",
+        "address": "12000 Molly Pitcher Highway, Greencastle, PA",
+        "city_state": "Greencastle, PA",
+        "street_address": "12000 Molly Pitcher Highway",
+        "deal_name": "Greencastle, PA - 12000 Molly Pitcher Highway - Listing 26",
+        "record_type": "Sale",
+        "asking_price": "",
+        "lease_rate": "",
+        "landlord_company": "Matrix Realty, Inc.",
+        "listing_effective_date": "1/22/2026",
+        "listing_expiration_date": "10/21/2026",
+        "square_footage": "1033470",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.731036,
+          39.771603
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Tamar Arslanian",
+        "Deal: Deal Name": "Kirchentellinsfurt, Germany - Mahdenstrasse 6 - Listing 26",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Cellforce Group GmbH",
+        "Listing Effective Date": "3/2/2026",
+        "Listing Expiration Date": "3/1/2027",
+        "Square Footage": "575000",
+        "Lease Square Footage": "",
+        "broker_name": "Tamar Arslanian",
+        "address": "Mahdenstrasse 6, Kirchentellinsfurt, Germany",
+        "city_state": "Kirchentellinsfurt, Germany",
+        "street_address": "Mahdenstrasse 6",
+        "deal_name": "Kirchentellinsfurt, Germany - Mahdenstrasse 6 - Listing 26",
+        "record_type": "Sale",
+        "asking_price": "",
+        "lease_rate": "",
+        "landlord_company": "Cellforce Group GmbH",
+        "listing_effective_date": "3/2/2026",
+        "listing_expiration_date": "3/1/2027",
+        "square_footage": "575000",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.171471,
+          48.542685
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Nick Biedron",
+        "Deal: Deal Name": "Waterford, NY - 260 Hudson River Road - Listing 26",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Momentive Performance Materials",
+        "Listing Effective Date": "3/2/2026",
+        "Listing Expiration Date": "3/1/2027",
+        "Square Footage": "527460",
+        "Lease Square Footage": "",
+        "broker_name": "Nick Biedron",
+        "address": "260 Hudson River Road, Waterford, NY",
+        "city_state": "Waterford, NY",
+        "street_address": "260 Hudson River Road",
+        "deal_name": "Waterford, NY - 260 Hudson River Road - Listing 26",
+        "record_type": "Sale",
+        "asking_price": "",
+        "lease_rate": "",
+        "landlord_company": "Momentive Performance Materials",
+        "listing_effective_date": "3/2/2026",
+        "listing_expiration_date": "3/1/2027",
+        "square_footage": "527460",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.667847,
+          42.816942
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Doug Faris",
+        "Deal: Deal Name": "Fayetteville, NC - 4800 Corporation Drive - Listing 25",
+        "Deal: Record Type": "Lease",
+        "Asking Price": "",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "EQT Exeter Property Group",
+        "Listing Effective Date": "10/1/2025",
+        "Listing Expiration Date": "6/30/2026",
+        "Square Footage": "506363",
+        "Lease Square Footage": "",
+        "broker_name": "Doug Faris",
+        "address": "4800 Corporation Drive, Fayetteville, NC",
+        "city_state": "Fayetteville, NC",
+        "street_address": "4800 Corporation Drive",
+        "deal_name": "Fayetteville, NC - 4800 Corporation Drive - Listing 25",
+        "record_type": "Lease",
+        "asking_price": "",
+        "lease_rate": "",
+        "landlord_company": "EQT Exeter Property Group",
+        "listing_effective_date": "10/1/2025",
+        "listing_expiration_date": "6/30/2026",
+        "square_footage": "506363",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -78.894952,
+          34.95382
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Doug Faris",
+        "Deal: Deal Name": "Lenoir, NC - 840  SW Complex Street  - Listing 24",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Malouf Sleep",
+        "Listing Effective Date": "8/27/2024",
+        "Listing Expiration Date": "9/2/2026",
+        "Square Footage": "492000",
+        "Lease Square Footage": "",
+        "broker_name": "Doug Faris",
+        "address": "840  SW Complex Street, Lenoir, NC",
+        "city_state": "Lenoir, NC",
+        "street_address": "840  SW Complex Street",
+        "deal_name": "Lenoir, NC - 840  SW Complex Street  - Listing 24",
+        "record_type": "Sale",
+        "asking_price": "",
+        "lease_rate": "",
+        "landlord_company": "Malouf Sleep",
+        "listing_effective_date": "8/27/2024",
+        "listing_expiration_date": "9/2/2026",
+        "square_footage": "492000",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -81.570226,
+          35.886131
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Jim Medbery",
+        "Deal: Deal Name": "McDonough, GA - 55 Liberty Industrial Parkway - Listing 26",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Icahn Enterprises LP",
+        "Listing Effective Date": "1/1/2026",
+        "Listing Expiration Date": "12/31/2026",
+        "Square Footage": "369270",
+        "Lease Square Footage": "",
+        "broker_name": "Jim Medbery",
+        "address": "55 Liberty Industrial Parkway, McDonough, GA",
+        "city_state": "McDonough, GA",
+        "street_address": "55 Liberty Industrial Parkway",
+        "deal_name": "McDonough, GA - 55 Liberty Industrial Parkway - Listing 26",
+        "record_type": "Sale",
+        "asking_price": "",
+        "lease_rate": "",
+        "landlord_company": "Icahn Enterprises LP",
+        "listing_effective_date": "1/1/2026",
+        "listing_expiration_date": "12/31/2026",
+        "square_footage": "369270",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.16236,
+          33.408961
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Tim Pennington",
+        "Deal: Deal Name": "Waterford, NY - 1 O'Connor Drive - Listing 26",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Fedrigoni Special Papers North America",
+        "Listing Effective Date": "2/26/2026",
+        "Listing Expiration Date": "2/25/2027",
+        "Square Footage": "326000",
+        "Lease Square Footage": "",
+        "broker_name": "Tim Pennington",
+        "address": "1 O'Connor Drive, Waterford, NY",
+        "city_state": "Waterford, NY",
+        "street_address": "1 O'Connor Drive",
+        "deal_name": "Waterford, NY - 1 O'Connor Drive - Listing 26",
+        "record_type": "Sale",
+        "asking_price": "",
+        "lease_rate": "",
+        "landlord_company": "Fedrigoni Special Papers North America",
+        "listing_effective_date": "2/26/2026",
+        "listing_expiration_date": "2/25/2027",
+        "square_footage": "326000",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.691186,
+          42.786739
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Ken Anthony",
+        "Deal: Deal Name": "Darien, GA - 1111 Magnolia Bluff Way - Listing 24",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Broadway Stages",
+        "Listing Effective Date": "10/8/2024",
+        "Listing Expiration Date": "3/9/2027",
+        "Square Footage": "277237",
+        "Lease Square Footage": "",
+        "broker_name": "Ken Anthony",
+        "address": "1111 Magnolia Bluff Way, Darien, GA",
+        "city_state": "Darien, GA",
+        "street_address": "1111 Magnolia Bluff Way",
+        "deal_name": "Darien, GA - 1111 Magnolia Bluff Way - Listing 24",
+        "record_type": "Sale",
+        "asking_price": "",
+        "lease_rate": "",
+        "landlord_company": "Broadway Stages",
+        "listing_effective_date": "10/8/2024",
+        "listing_expiration_date": "3/9/2027",
+        "square_footage": "277237",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -81.451614,
+          31.394286
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Tim Pennington",
+        "Deal: Deal Name": "Buffalo, NY - 231 Ship Canal Parkway - Listing 25",
+        "Deal: Record Type": "Lease",
+        "Asking Price": "",
+        "Lease Rate": "3.85",
+        "Landlord Company/Seller Company": "Oldcastle Glass, Inc.",
+        "Listing Effective Date": "8/28/2025",
+        "Listing Expiration Date": "8/27/2026",
+        "Square Footage": "276500",
+        "Lease Square Footage": "",
+        "broker_name": "Tim Pennington",
+        "address": "231 Ship Canal Parkway, Buffalo, NY",
+        "city_state": "Buffalo, NY",
+        "street_address": "231 Ship Canal Parkway",
+        "deal_name": "Buffalo, NY - 231 Ship Canal Parkway - Listing 25",
+        "record_type": "Lease",
+        "asking_price": "",
+        "lease_rate": "3.85",
+        "landlord_company": "Oldcastle Glass, Inc.",
+        "listing_effective_date": "8/28/2025",
+        "listing_expiration_date": "8/27/2026",
+        "square_footage": "276500",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -78.842545,
+          42.834508
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Chris Pennington",
+        "Deal: Deal Name": "Philadelphia, PA - 4101 N Delaware Avenue - Listing 26",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Frankel Management Company",
+        "Listing Effective Date": "2/4/2026",
+        "Listing Expiration Date": "8/3/2026",
+        "Square Footage": "271600",
+        "Lease Square Footage": "",
+        "broker_name": "Chris Pennington",
+        "address": "4101 N Delaware Avenue, Philadelphia, PA",
+        "city_state": "Philadelphia, PA",
+        "street_address": "4101 N Delaware Avenue",
+        "deal_name": "Philadelphia, PA - 4101 N Delaware Avenue - Listing 26",
+        "record_type": "Sale",
+        "asking_price": "",
+        "lease_rate": "",
+        "landlord_company": "Frankel Management Company",
+        "listing_effective_date": "2/4/2026",
+        "listing_expiration_date": "8/3/2026",
+        "square_footage": "271600",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.075206,
+          39.984546
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Tim Pennington",
+        "Deal: Deal Name": "Hamburg, PA - 100 Industrial Drive - Listing 25",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Vincent F Carosella 2024 Irrevocable Trust",
+        "Listing Effective Date": "7/16/2025",
+        "Listing Expiration Date": "7/15/2026",
+        "Square Footage": "252448",
+        "Lease Square Footage": "",
+        "broker_name": "Tim Pennington",
+        "address": "100 Industrial Drive, Hamburg, PA",
+        "city_state": "Hamburg, PA",
+        "street_address": "100 Industrial Drive",
+        "deal_name": "Hamburg, PA - 100 Industrial Drive - Listing 25",
+        "record_type": "Sale",
+        "asking_price": "",
+        "lease_rate": "",
+        "landlord_company": "Vincent F Carosella 2024 Irrevocable Trust",
+        "listing_effective_date": "7/16/2025",
+        "listing_expiration_date": "7/15/2026",
+        "square_footage": "252448",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.005188,
+          40.565389
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Chris Pennington",
+        "Deal: Deal Name": "Philadelphia, PA - 300 East Godfrey Avenue - Listing 26",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "JRE 11 Realty LLC",
+        "Listing Effective Date": "1/6/2026",
+        "Listing Expiration Date": "1/5/2027",
+        "Square Footage": "252000",
+        "Lease Square Footage": "",
+        "broker_name": "Chris Pennington",
+        "address": "300 East Godfrey Avenue, Philadelphia, PA",
+        "city_state": "Philadelphia, PA",
+        "street_address": "300 East Godfrey Avenue",
+        "deal_name": "Philadelphia, PA - 300 East Godfrey Avenue - Listing 26",
+        "record_type": "Sale",
+        "asking_price": "",
+        "lease_rate": "",
+        "landlord_company": "JRE 11 Realty LLC",
+        "listing_effective_date": "1/6/2026",
+        "listing_expiration_date": "1/5/2027",
+        "square_footage": "252000",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.109557,
+          40.042389
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Brooke Oldt",
+        "Deal: Deal Name": "Hodgkins, IL - 7300 Santa Fe Drive - Listing 25",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Generous Brands",
+        "Listing Effective Date": "10/14/2025",
+        "Listing Expiration Date": "10/13/2026",
+        "Square Footage": "235560",
+        "Lease Square Footage": "235560",
+        "broker_name": "Brooke Oldt",
+        "address": "7300 Santa Fe Drive, Hodgkins, IL",
+        "city_state": "Hodgkins, IL",
+        "street_address": "7300 Santa Fe Drive",
+        "deal_name": "Hodgkins, IL - 7300 Santa Fe Drive - Listing 25",
+        "record_type": "Sale",
+        "asking_price": "",
+        "lease_rate": "",
+        "landlord_company": "Generous Brands",
+        "listing_effective_date": "10/14/2025",
+        "listing_expiration_date": "10/13/2026",
+        "square_footage": "235560",
+        "lease_square_footage": "235560"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.866947,
+          41.755906
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Tim Pennington",
+        "Deal: Deal Name": "Weisenberg, PA - 9775 Commerce Circle - Listing 25",
+        "Deal: Record Type": "Lease",
+        "Asking Price": "",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Jetson Specialty Marketing Services Inc.",
+        "Listing Effective Date": "7/14/2025",
+        "Listing Expiration Date": "7/13/2026",
+        "Square Footage": "226417",
+        "Lease Square Footage": "",
+        "broker_name": "Tim Pennington",
+        "address": "9775 Commerce Circle, Weisenberg, PA",
+        "city_state": "Weisenberg, PA",
+        "street_address": "9775 Commerce Circle",
+        "deal_name": "Weisenberg, PA - 9775 Commerce Circle - Listing 25",
+        "record_type": "Lease",
+        "asking_price": "",
+        "lease_rate": "",
+        "landlord_company": "Jetson Specialty Marketing Services Inc.",
+        "listing_effective_date": "7/14/2025",
+        "listing_expiration_date": "7/13/2026",
+        "square_footage": "226417",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.711178,
+          40.581641
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Chris Pennington",
+        "Deal: Deal Name": "Philadelphia, PA - 2155 Castor Avenue - Listing 26",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Frankel Management Company",
+        "Listing Effective Date": "5/4/2026",
+        "Listing Expiration Date": "11/3/2026",
+        "Square Footage": "214891",
+        "Lease Square Footage": "",
+        "broker_name": "Chris Pennington",
+        "address": "2155 Castor Avenue, Philadelphia, PA",
+        "city_state": "Philadelphia, PA",
+        "street_address": "2155 Castor Avenue",
+        "deal_name": "Philadelphia, PA - 2155 Castor Avenue - Listing 26",
+        "record_type": "Sale",
+        "asking_price": "",
+        "lease_rate": "",
+        "landlord_company": "Frankel Management Company",
+        "listing_effective_date": "5/4/2026",
+        "listing_expiration_date": "11/3/2026",
+        "square_footage": "214891",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.096577,
+          39.999032
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Nicole May",
+        "Deal: Deal Name": "Scottsburg, IN - 745 South Gardner Street - Listing 26",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Broadway Stages",
+        "Listing Effective Date": "5/20/2026",
+        "Listing Expiration Date": "5/19/2027",
+        "Square Footage": "204250",
+        "Lease Square Footage": "",
+        "broker_name": "Nicole May",
+        "address": "745 South Gardner Street, Scottsburg, IN",
+        "city_state": "Scottsburg, IN",
+        "street_address": "745 South Gardner Street",
+        "deal_name": "Scottsburg, IN - 745 South Gardner Street - Listing 26",
+        "record_type": "Sale",
+        "asking_price": "",
+        "lease_rate": "",
+        "landlord_company": "Broadway Stages",
+        "listing_effective_date": "5/20/2026",
+        "listing_expiration_date": "5/19/2027",
+        "square_footage": "204250",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -85.776959,
+          38.677894
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Chris Pennington",
+        "Deal: Deal Name": "Philadelphia, PA - 6801R A, D and F New State Road - Listing 26",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Kaplan Properties",
+        "Listing Effective Date": "4/5/2026",
+        "Listing Expiration Date": "4/4/2027",
+        "Square Footage": "181012",
+        "Lease Square Footage": "",
+        "broker_name": "Chris Pennington",
+        "address": "6801R A, D and F New State Road, Philadelphia, PA",
+        "city_state": "Philadelphia, PA",
+        "street_address": "6801R A, D and F New State Road",
+        "deal_name": "Philadelphia, PA - 6801R A, D and F New State Road - Listing 26",
+        "record_type": "Sale",
+        "asking_price": "",
+        "lease_rate": "",
+        "landlord_company": "Kaplan Properties",
+        "listing_effective_date": "4/5/2026",
+        "listing_expiration_date": "4/4/2027",
+        "square_footage": "181012",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.039467,
+          40.020986
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Zach Binswanger",
+        "Deal: Deal Name": "Elgin, IL - 1400 Abbot Drive - Listing 26",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Printpack, Inc.",
+        "Listing Effective Date": "4/9/2026",
+        "Listing Expiration Date": "4/8/2027",
+        "Square Footage": "170216",
+        "Lease Square Footage": "",
+        "broker_name": "Zach Binswanger",
+        "address": "1400 Abbot Drive, Elgin, IL",
+        "city_state": "Elgin, IL",
+        "street_address": "1400 Abbot Drive",
+        "deal_name": "Elgin, IL - 1400 Abbot Drive - Listing 26",
+        "record_type": "Sale",
+        "asking_price": "",
+        "lease_rate": "",
+        "landlord_company": "Printpack, Inc.",
+        "listing_effective_date": "4/9/2026",
+        "listing_expiration_date": "4/8/2027",
+        "square_footage": "170216",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -88.311839,
+          42.055796
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Carson Erard",
+        "Deal: Deal Name": "Salt Lake City, UT - 1195 North 6550 West - Listing 25",
+        "Deal: Record Type": "Lease",
+        "Asking Price": "",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Albany Industries",
+        "Listing Effective Date": "8/19/2025",
+        "Listing Expiration Date": "8/18/2026",
+        "Square Footage": "150000",
+        "Lease Square Footage": "",
+        "broker_name": "Carson Erard",
+        "address": "1195 North 6550 West, Salt Lake City, UT",
+        "city_state": "Salt Lake City, UT",
+        "street_address": "1195 North 6550 West",
+        "deal_name": "Salt Lake City, UT - 1195 North 6550 West - Listing 25",
+        "record_type": "Lease",
+        "asking_price": "",
+        "lease_rate": "",
+        "landlord_company": "Albany Industries",
+        "listing_effective_date": "8/19/2025",
+        "listing_expiration_date": "8/18/2026",
+        "square_footage": "150000",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.050837,
+          40.79447
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Nick Biedron",
+        "Deal: Deal Name": "Dorado, PR - 100 PR-698 - Listing 24",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Humanwell Healthcare USA, LLC",
+        "Listing Effective Date": "1/3/2025",
+        "Listing Expiration Date": "1/5/2027",
+        "Square Footage": "145000",
+        "Lease Square Footage": "",
+        "broker_name": "Nick Biedron",
+        "address": "100 PR-698, Dorado, PR",
+        "city_state": "Dorado, PR",
+        "street_address": "100 PR-698",
+        "deal_name": "Dorado, PR - 100 PR-698 - Listing 24",
+        "record_type": "Sale",
+        "asking_price": "",
+        "lease_rate": "",
+        "landlord_company": "Humanwell Healthcare USA, LLC",
+        "listing_effective_date": "1/3/2025",
+        "listing_expiration_date": "1/5/2027",
+        "square_footage": "145000",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.266533,
+          18.474481
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Shaun Kirchin",
+        "Deal: Deal Name": "Union, SC - 260 Midway Drive - Listing 25",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "CH Realty Partners, LLC",
+        "Listing Effective Date": "12/11/2025",
+        "Listing Expiration Date": "12/10/2026",
+        "Square Footage": "135939",
+        "Lease Square Footage": "",
+        "broker_name": "Shaun Kirchin",
+        "address": "260 Midway Drive, Union, SC",
+        "city_state": "Union, SC",
+        "street_address": "260 Midway Drive",
+        "deal_name": "Union, SC - 260 Midway Drive - Listing 25",
+        "record_type": "Sale",
+        "asking_price": "",
+        "lease_rate": "",
+        "landlord_company": "CH Realty Partners, LLC",
+        "listing_effective_date": "12/11/2025",
+        "listing_expiration_date": "12/10/2026",
+        "square_footage": "135939",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -81.66275,
+          34.7096
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Jonathan Elkins",
+        "Deal: Deal Name": "Torrington, CT - 368 Ella Grasso Avenue - Listing 26",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Alma Realty",
+        "Listing Effective Date": "6/2/2026",
+        "Listing Expiration Date": "12/1/2026",
+        "Square Footage": "132962",
+        "Lease Square Footage": "",
+        "broker_name": "Jonathan Elkins",
+        "address": "368 Ella Grasso Avenue, Torrington, CT",
+        "city_state": "Torrington, CT",
+        "street_address": "368 Ella Grasso Avenue",
+        "deal_name": "Torrington, CT - 368 Ella Grasso Avenue - Listing 26",
+        "record_type": "Sale",
+        "asking_price": "",
+        "lease_rate": "",
+        "landlord_company": "Alma Realty",
+        "listing_effective_date": "6/2/2026",
+        "listing_expiration_date": "12/1/2026",
+        "square_footage": "132962",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.070302,
+          41.868185
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Chris Pennington",
+        "Deal: Deal Name": "Philadelphia, PA - 3780-3800 Frankford Avenue - Listing 26",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "BDDW Garments LLC",
+        "Listing Effective Date": "2/2/2026",
+        "Listing Expiration Date": "8/1/2026",
+        "Square Footage": "132000",
+        "Lease Square Footage": "",
+        "broker_name": "Chris Pennington",
+        "address": "3780-3800 Frankford Avenue, Philadelphia, PA",
+        "city_state": "Philadelphia, PA",
+        "street_address": "3780-3800 Frankford Avenue",
+        "deal_name": "Philadelphia, PA - 3780-3800 Frankford Avenue - Listing 26",
+        "record_type": "Sale",
+        "asking_price": "",
+        "lease_rate": "",
+        "landlord_company": "BDDW Garments LLC",
+        "listing_effective_date": "2/2/2026",
+        "listing_expiration_date": "8/1/2026",
+        "square_footage": "132000",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.069305,
+          40.026278
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Chris Pennington",
+        "Deal: Deal Name": "Philadelphia, PA - 2500 League Island Blvd. - Listing 24",
+        "Deal: Record Type": "Lease",
+        "Asking Price": "",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "",
+        "Listing Effective Date": "10/23/2024",
+        "Listing Expiration Date": "10/21/2026",
+        "Square Footage": "130000",
+        "Lease Square Footage": "",
+        "broker_name": "Chris Pennington",
+        "address": "2500 League Island Blvd., Philadelphia, PA",
+        "city_state": "Philadelphia, PA",
+        "street_address": "2500 League Island Blvd.",
+        "deal_name": "Philadelphia, PA - 2500 League Island Blvd. - Listing 24",
+        "record_type": "Lease",
+        "asking_price": "",
+        "lease_rate": "",
+        "landlord_company": "",
+        "listing_effective_date": "10/23/2024",
+        "listing_expiration_date": "10/21/2026",
+        "square_footage": "130000",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.188928,
+          39.895171
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Chris Pennington",
+        "Deal: Deal Name": "Milan, MO - 832 East 3rd Street & 420 South Pearl - Listing 25",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "4000000",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Simmons Foods, Inc.",
+        "Listing Effective Date": "12/16/2025",
+        "Listing Expiration Date": "12/15/2026",
+        "Square Footage": "130000",
+        "Lease Square Footage": "",
+        "broker_name": "Chris Pennington",
+        "address": "832 East 3rd Street & 420 South Pearl, Milan, MO",
+        "city_state": "Milan, MO",
+        "street_address": "832 East 3rd Street & 420 South Pearl",
+        "deal_name": "Milan, MO - 832 East 3rd Street & 420 South Pearl - Listing 25",
+        "record_type": "Sale",
+        "asking_price": "4000000",
+        "lease_rate": "",
+        "landlord_company": "Simmons Foods, Inc.",
+        "listing_effective_date": "12/16/2025",
+        "listing_expiration_date": "12/15/2026",
+        "square_footage": "130000",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -93.125454,
+          40.2021
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Carson Erard",
+        "Deal: Deal Name": "Longmont, CO - 4120 Specialty Place - Listing 26",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Danfoss Scroll Technology",
+        "Listing Effective Date": "2/6/2026",
+        "Listing Expiration Date": "2/5/2027",
+        "Square Footage": "129304",
+        "Lease Square Footage": "",
+        "broker_name": "Carson Erard",
+        "address": "4120 Specialty Place, Longmont, CO",
+        "city_state": "Longmont, CO",
+        "street_address": "4120 Specialty Place",
+        "deal_name": "Longmont, CO - 4120 Specialty Place - Listing 26",
+        "record_type": "Sale",
+        "asking_price": "",
+        "lease_rate": "",
+        "landlord_company": "Danfoss Scroll Technology",
+        "listing_effective_date": "2/6/2026",
+        "listing_expiration_date": "2/5/2027",
+        "square_footage": "129304",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -104.977461,
+          40.143294
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Nick Biedron",
+        "Deal: Deal Name": "Singapore - 10 Tuas Bay Lane - Listing 26",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "BioNTech",
+        "Listing Effective Date": "3/31/2026",
+        "Listing Expiration Date": "3/30/2027",
+        "Square Footage": "120553",
+        "Lease Square Footage": "",
+        "broker_name": "Nick Biedron",
+        "address": "10 Tuas Bay Lane, Singapore",
+        "city_state": "Singapore",
+        "street_address": "10 Tuas Bay Lane",
+        "deal_name": "Singapore - 10 Tuas Bay Lane - Listing 26",
+        "record_type": "Sale",
+        "asking_price": "",
+        "lease_rate": "",
+        "landlord_company": "BioNTech",
+        "listing_effective_date": "3/31/2026",
+        "listing_expiration_date": "3/30/2027",
+        "square_footage": "120553",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.63607,
+          1.295863
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Jeff Binswanger",
+        "Deal: Deal Name": "Medley, FL - 7321 NW 75th Street - Listing 25",
+        "Deal: Record Type": "Lease",
+        "Asking Price": "",
+        "Lease Rate": "14.95",
+        "Landlord Company/Seller Company": "Finser Corporation",
+        "Listing Effective Date": "7/11/2025",
+        "Listing Expiration Date": "7/10/2026",
+        "Square Footage": "119008",
+        "Lease Square Footage": "",
+        "broker_name": "Jeff Binswanger",
+        "address": "7321 NW 75th Street, Medley, FL",
+        "city_state": "Medley, FL",
+        "street_address": "7321 NW 75th Street",
+        "deal_name": "Medley, FL - 7321 NW 75th Street - Listing 25",
+        "record_type": "Lease",
+        "asking_price": "",
+        "lease_rate": "14.95",
+        "landlord_company": "Finser Corporation",
+        "listing_effective_date": "7/11/2025",
+        "listing_expiration_date": "7/10/2026",
+        "square_footage": "119008",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.317308,
+          25.842105
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Nicholas Giganti",
+        "Deal: Deal Name": "Petersburg, VA - 2340 & 2400 Washington Street - Listing 26",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "2250000",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Niche Polymer, LLC",
+        "Listing Effective Date": "5/19/2026",
+        "Listing Expiration Date": "5/18/2027",
+        "Square Footage": "109498",
+        "Lease Square Footage": "",
+        "broker_name": "Nicholas Giganti",
+        "address": "2340 & 2400 Washington Street, Petersburg, VA",
+        "city_state": "Petersburg, VA",
+        "street_address": "2340 & 2400 Washington Street",
+        "deal_name": "Petersburg, VA - 2340 & 2400 Washington Street - Listing 26",
+        "record_type": "Sale",
+        "asking_price": "2250000",
+        "lease_rate": "",
+        "landlord_company": "Niche Polymer, LLC",
+        "listing_effective_date": "5/19/2026",
+        "listing_expiration_date": "5/18/2027",
+        "square_footage": "109498",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.362581,
+          37.238566
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Jonathan Elkins",
+        "Deal: Deal Name": "Shelton, CT - 1 Parrott Drive - Listing 26",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "David Adam Realty",
+        "Listing Effective Date": "5/13/2026",
+        "Listing Expiration Date": "2/12/2027",
+        "Square Footage": "102000",
+        "Lease Square Footage": "",
+        "broker_name": "Jonathan Elkins",
+        "address": "1 Parrott Drive, Shelton, CT",
+        "city_state": "Shelton, CT",
+        "street_address": "1 Parrott Drive",
+        "deal_name": "Shelton, CT - 1 Parrott Drive - Listing 26",
+        "record_type": "Sale",
+        "asking_price": "",
+        "lease_rate": "",
+        "landlord_company": "David Adam Realty",
+        "listing_effective_date": "5/13/2026",
+        "listing_expiration_date": "2/12/2027",
+        "square_footage": "102000",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.129588,
+          41.272539
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "David Barber",
+        "Deal: Deal Name": "Thomson, GA - 1241 Harrison Road, SE - Listing 25",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "3500000",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "WC Bradley Co. Real Estate, LLC",
+        "Listing Effective Date": "11/21/2025",
+        "Listing Expiration Date": "11/20/2026",
+        "Square Footage": "100600",
+        "Lease Square Footage": "",
+        "broker_name": "David Barber",
+        "address": "1241 Harrison Road, SE, Thomson, GA",
+        "city_state": "Thomson, GA",
+        "street_address": "1241 Harrison Road, SE",
+        "deal_name": "Thomson, GA - 1241 Harrison Road, SE - Listing 25",
+        "record_type": "Sale",
+        "asking_price": "3500000",
+        "lease_rate": "",
+        "landlord_company": "WC Bradley Co. Real Estate, LLC",
+        "listing_effective_date": "11/21/2025",
+        "listing_expiration_date": "11/20/2026",
+        "square_footage": "100600",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.477783,
+          33.464863
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Zach Binswanger",
+        "Deal: Deal Name": "Belleville, WI - 215 Federal Avenue - Listing 26",
+        "Deal: Record Type": "Sale",
+        "Asking Price": "",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "Mill Point Capital",
+        "Listing Effective Date": "4/27/2026",
+        "Listing Expiration Date": "12/26/2026",
+        "Square Footage": "100069",
+        "Lease Square Footage": "",
+        "broker_name": "Zach Binswanger",
+        "address": "215 Federal Avenue, Belleville, WI",
+        "city_state": "Belleville, WI",
+        "street_address": "215 Federal Avenue",
+        "deal_name": "Belleville, WI - 215 Federal Avenue - Listing 26",
+        "record_type": "Sale",
+        "asking_price": "",
+        "lease_rate": "",
+        "landlord_company": "Mill Point Capital",
+        "listing_effective_date": "4/27/2026",
+        "listing_expiration_date": "12/26/2026",
+        "square_footage": "100069",
+        "lease_square_footage": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -89.530987,
+          42.865979
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Owner": "Doug Faris",
+        "Deal: Deal Name": "Conover, NC - 1405 Deborah Herman Road - Listing 25",
+        "Deal: Record Type": "Lease",
+        "Asking Price": "",
+        "Lease Rate": "",
+        "Landlord Company/Seller Company": "PAARK Properties LLC",
+        "Listing Effective Date": "10/24/2025",
+        "Listing Expiration Date": "7/23/2026",
+        "Square Footage": "",
+        "Lease Square Footage": "120000",
+        "broker_name": "Doug Faris",
+        "address": "1405 Deborah Herman Road, Conover, NC",
+        "city_state": "Conover, NC",
+        "street_address": "1405 Deborah Herman Road",
+        "deal_name": "Conover, NC - 1405 Deborah Herman Road - Listing 25",
+        "record_type": "Lease",
+        "asking_price": "",
+        "lease_rate": "",
+        "landlord_company": "PAARK Properties LLC",
+        "listing_effective_date": "10/24/2025",
+        "listing_expiration_date": "7/23/2026",
+        "square_footage": "",
+        "lease_square_footage": "120000"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -81.249087,
+          35.712641
+        ]
+      }
+    }
+  ]
+}
