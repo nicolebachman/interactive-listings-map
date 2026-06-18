@@ -28,8 +28,8 @@ jobs:
           MS_TENANT_ID: ${{ secrets.MS_TENANT_ID }}
           MS_CLIENT_ID: ${{ secrets.MS_CLIENT_ID }}
           MS_CLIENT_SECRET: ${{ secrets.MS_CLIENT_SECRET }}
-          SHAREPOINT_SITE_URL: https://binswanger365.sharepoint.com/sites/Public
-          SHAREPOINT_FILE_PATH: /Shared Documents/Ackerman, Paige/Significant Listings Template.xlsx
+          SHAREPOINT_SITE_URL: ${{ secrets.SHAREPOINT_SITE_URL }}
+          SHAREPOINT_FILE_PATH: ${{ secrets.SHAREPOINT_FILE_PATH }}
         run: node download-sharepoint-file.js
 
       - name: Update locations.geojson
