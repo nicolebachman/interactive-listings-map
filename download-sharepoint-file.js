@@ -145,6 +145,18 @@ function buildCandidatePaths(filePath) {
   return [...candidates];
 }
 
+function toGraphDrivePath(candidatePath) {
+  if (candidatePath.startsWith("/Shared Documents/")) {
+    return candidatePath.replace("/Shared Documents", "");
+  }
+
+  if (candidatePath.startsWith("/Documents/")) {
+    return candidatePath.replace("/Documents", "");
+  }
+
+  return candidatePath;
+}
+
 async function resolveSite(siteUrl, accessToken) {
   const parsed = new URL(siteUrl);
   const relativePath = parsed.pathname.replace(/\/$/, "");
@@ -163,7 +175,7 @@ async function resolveSite(siteUrl, accessToken) {
 }
 
 async function resolveFile(siteId, accessToken, candidatePath) {
-  const encodedPath = encodeURI(candidatePath);
+  const encodedPath = encodeURI(toGraphDrivePath(candidatePath));
   const metadataUrl =
     `https://graph.microsoft.com/v1.0/sites/${encodeURIComponent(siteId)}` +
     `/drive/root:${encodedPath}:`;
@@ -176,7 +188,7 @@ async function resolveFile(siteId, accessToken, candidatePath) {
 }
 
 async function downloadFile(siteId, accessToken, candidatePath) {
-  const encodedPath = encodeURI(candidatePath);
+  const encodedPath = encodeURI(toGraphDrivePath(candidatePath));
   const downloadUrl =
     `https://graph.microsoft.com/v1.0/sites/${encodeURIComponent(siteId)}` +
     `/drive/root:${encodedPath}:/content`;
@@ -242,4 +254,3 @@ main().catch((error) => {
   console.error(error.message);
   process.exitCode = 1;
 });
-
