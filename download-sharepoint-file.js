@@ -191,6 +191,9 @@ async function downloadFile(siteId, accessToken, candidatePath) {
 async function main() {
   await loadEnvFile(envPath);
 
+  console.error(`Raw SHAREPOINT_SITE_URL: ${process.env.SHAREPOINT_SITE_URL || ""}`);
+  console.error(`Raw SHAREPOINT_FILE_PATH: ${process.env.SHAREPOINT_FILE_PATH || ""}`);
+
   const tenantId = requireEnv("MS_TENANT_ID");
   const clientId = requireEnv("MS_CLIENT_ID");
   const clientSecret = requireEnv("MS_CLIENT_SECRET");
@@ -199,6 +202,8 @@ async function main() {
 
   const accessToken = await getAccessToken(tenantId, clientId, clientSecret);
   const site = await resolveSite(siteUrl, accessToken);
+  console.error(`Resolved site.id: ${site.id}`);
+  console.error(`Resolved site.webUrl: ${site.webUrl || ""}`);
   const candidatePaths = buildCandidatePaths(filePath);
 
   let resolvedFile = null;
@@ -215,6 +220,8 @@ async function main() {
       resolvedPath = candidatePath;
       break;
     } catch (error) {
+      console.error(`Failed candidate path: ${candidatePath}`);
+      console.error(`Candidate error: ${error.message}`);
       lastError = error;
     }
   }
