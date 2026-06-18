@@ -166,7 +166,7 @@ async function resolveFile(siteId, accessToken, candidatePath) {
   const encodedPath = encodeURI(candidatePath);
   const metadataUrl =
     `https://graph.microsoft.com/v1.0/sites/${encodeURIComponent(siteId)}` +
-    `/drive/root:${encodedPath}`;
+    `/drive/root:${encodedPath}:`;
 
   return fetchJson(metadataUrl, {
     headers: {
@@ -242,3 +242,4 @@ main().catch((error) => {
   console.error(error.message);
   process.exitCode = 1;
 });
+
