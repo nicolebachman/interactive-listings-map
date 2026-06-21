@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,15 +11,11 @@
   >
   <style>
     :root {
-      --bg: #f4efe7;
-      --panel: rgba(255, 252, 247, 0.94);
       --ink: #1f2a33;
       --muted: #63717d;
       --accent: #d34b32;
       --accent-dark: #982f20;
-      --border: rgba(31, 42, 51, 0.12);
-      --shadow: 0 24px 60px rgba(31, 42, 51, 0.18);
-      --page-gutter: 16px;
+      --page-gutter: 0px;
     }
 
     * {
@@ -27,55 +24,45 @@
 
     body {
       margin: 0;
-      padding: var(--page-gutter) 0;
+      padding: 0;
       font-family: Georgia, "Times New Roman", serif;
       color: var(--ink);
-      background:
-        radial-gradient(circle at top left, rgba(211, 75, 50, 0.18), transparent 28%),
-        radial-gradient(circle at bottom right, rgba(52, 98, 123, 0.16), transparent 24%),
-        var(--bg);
+      background: transparent;
     }
 
     .page {
-      width: min(1200px, calc(100% - (var(--page-gutter) * 2)));
+      width: 100%;
       margin: 0 auto;
-      min-height: calc(100vh - (var(--page-gutter) * 2));
-      min-height: calc(100dvh - (var(--page-gutter) * 2));
+      min-height: 100vh;
+      min-height: 100dvh;
     }
 
     .card {
       display: grid;
       grid-template-rows: auto minmax(0, 1fr);
-      border: 1px solid var(--border);
+      border: 0;
       border-radius: 0;
       overflow: hidden;
-      background: rgba(255, 252, 247, 0.7);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
+      background: transparent;
+      box-shadow: none;
+      backdrop-filter: none;
       min-height: 100%;
-      height: min(780px, calc(100vh - (var(--page-gutter) * 2)));
-      height: min(780px, calc(100dvh - (var(--page-gutter) * 2)));
+      height: 100vh;
+      height: 100dvh;
     }
 
     .page-header {
       padding: 14px 20px 12px;
-      background: rgba(255, 252, 247, 0.7);
+      background: transparent;
     }
 
     .eyebrow {
-      margin: 0 0 8px;
+      margin: 0;
       font-size: 0.72rem;
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--accent);
       font-family: Arial, sans-serif;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(1.4rem, 3vw, 2.2rem);
-      line-height: 1;
-      font-weight: 600;
     }
 
     #map {
@@ -180,7 +167,10 @@
     }
 
     .error {
-      margin-top: 12px;
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      z-index: 2;
       max-width: 32rem;
       padding: 12px 14px;
       border-radius: 14px;
@@ -194,21 +184,18 @@
     }
 
     @media (max-width: 900px) {
-      :root {
-        --page-gutter: 10px;
-      }
-
       .page {
-        width: min(100%, calc(100% - (var(--page-gutter) * 2)));
+        width: 100%;
         margin: 0 auto;
-        min-height: calc(100vh - (var(--page-gutter) * 2));
-        min-height: calc(100dvh - (var(--page-gutter) * 2));
+        min-height: 100vh;
+        min-height: 100dvh;
       }
 
       .card {
-        min-height: calc(100vh - (var(--page-gutter) * 2));
-        min-height: calc(100dvh - (var(--page-gutter) * 2));
-        height: auto;
+        min-height: 100vh;
+        min-height: 100dvh;
+        height: 100vh;
+        height: 100dvh;
       }
 
       .page-header {
@@ -216,8 +203,8 @@
       }
 
       #map {
-        height: auto;
-        min-height: clamp(320px, calc(100dvh - 120px), 720px);
+        height: 100%;
+        min-height: 320px;
       }
     }
   </style>
@@ -227,9 +214,8 @@
     <div class="card">
       <header class="page-header">
         <p class="eyebrow">Global Listings</p>
-        <h1>Broker Map</h1>
-        <div id="error" class="error"></div>
       </header>
+      <div id="error" class="error"></div>
       <div id="map" aria-label="Map of property listings"></div>
     </div>
   </div>
@@ -463,8 +449,29 @@
       errorEl.style.display = "block";
     }
 
+    function unifyWaterColor() {
+      const waterColor = "#9fc7d8";
+      const styleLayers = map.getStyle()?.layers || [];
+
+      for (const layer of styleLayers) {
+        if (!/\bwater\b/i.test(layer.id)) {
+          continue;
+        }
+
+        if (layer.type === "fill") {
+          map.setPaintProperty(layer.id, "fill-color", waterColor);
+        }
+
+        if (layer.type === "line") {
+          map.setPaintProperty(layer.id, "line-color", waterColor);
+        }
+      }
+    }
+
     async function loadListings() {
       try {
+        unifyWaterColor();
+
         const response = await fetch("./locations.geojson");
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}`);
@@ -625,6 +632,7 @@
           }
 
           const nextAnchor = popup.options.anchor === "top" ? "bottom" : "top";
+
           const nextPopup = new mapboxgl.Popup({
             anchor: nextAnchor,
             closeButton: true,
@@ -699,3 +707,4 @@
   </script>
 </body>
 </html>
+
