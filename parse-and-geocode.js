@@ -165,6 +165,22 @@ function findHeaderRow(rows, headerAliases) {
   return null;
 }
 
+function mapOptionalColumns(normalizedByColumn, optionalHeaderAliases) {
+  const columnMap = {};
+
+  for (const [targetField, targetAliases] of Object.entries(optionalHeaderAliases)) {
+    const match = Object.entries(normalizedByColumn).find(([, value]) =>
+      targetAliases.includes(value)
+    );
+
+    if (match) {
+      columnMap[targetField] = match[0];
+    }
+  }
+
+  return columnMap;
+}
+
 function parseAddress(rawAddress) {
   const parts = String(rawAddress || "")
     .split(/\s+-\s+/)
@@ -219,11 +235,15 @@ function buildProperties(rowValues, columnMap, parsedAddress) {
   const listingEffectiveDate = rowValues[columnMap.listingEffectiveDate] || "";
   const listingExpirationDate = rowValues[columnMap.listingExpirationDate] || "";
   const squareFootage = rowValues[columnMap.squareFootage] || "";
-  const leaseSquareFootage = rowValues[columnMap.leaseSquareFootage] || "";
+  const leaseSquareFootage = columnMap.leaseSquareFootage
+    ? (rowValues[columnMap.leaseSquareFootage] || "")
+    : "";
+  const acreage = columnMap.acreage ? (rowValues[columnMap.acreage] || "") : "";
   const address = `${parsedAddress.streetAddress}, ${parsedAddress.cityState}`;
 
   return {
     Owner: owner,
+    Property: dealName,
     "Deal: Deal Name": dealName,
     "Deal: Record Type": recordType,
     "Asking Price": askingPrice,
@@ -232,6 +252,7 @@ function buildProperties(rowValues, columnMap, parsedAddress) {
     "Listing Effective Date": listingEffectiveDate,
     "Listing Expiration Date": listingExpirationDate,
     "Square Footage": squareFootage,
+    Acreage: acreage,
     "Lease Square Footage": leaseSquareFootage,
     broker_name: owner,
     address,
@@ -245,6 +266,7 @@ function buildProperties(rowValues, columnMap, parsedAddress) {
     listing_effective_date: listingEffectiveDate,
     listing_expiration_date: listingExpirationDate,
     square_footage: squareFootage,
+    acreage,
     lease_square_footage: leaseSquareFootage
   };
 }
@@ -285,25 +307,37 @@ async function main() {
   const sharedStrings = parseSharedStrings(sharedStringsXml);
   const rows = parseWorksheet(worksheetXml, sharedStrings);
 
-  const headerAliases = {
+  const requiredHeaderAliases = {
     owner: ["owner"],
-    addressDealNumber: ["deal: deal name"],
+    addressDealNumber: ["deal: deal name", "property"],
     recordType: ["deal: record type"],
     askingPrice: ["asking price"],
     leaseRate: ["lease rate"],
     landlordCompany: ["landlord company/seller company"],
     listingEffectiveDate: ["listing effective date"],
     listingExpirationDate: ["listing expiration date"],
-    squareFootage: ["square footage"],
-    leaseSquareFootage: ["lease square footage"]
+    squareFootage: ["square footage"]
+  };
+  const optionalHeaderAliases = {
+    leaseSquareFootage: ["lease square footage"],
+    acreage: ["acreage"]
   };
 
-  const header = findHeaderRow(rows, headerAliases);
+  const header = findHeaderRow(rows, requiredHeaderAliases);
   if (!header) {
     console.error("Could not find the expected header row in test.xlsx.");
     process.exitCode = 1;
     return;
   }
+
+  const headerRow = rows.find((row) => row.rowNumber === header.rowNumber);
+  const normalizedByColumn = Object.fromEntries(
+    Object.entries(headerRow?.values || {}).map(([col, value]) => [col, normalizeHeader(value)])
+  );
+  header.columnMap = {
+    ...header.columnMap,
+    ...mapOptionalColumns(normalizedByColumn, optionalHeaderAliases)
+  };
 
   const features = [];
   const failedRows = [];
