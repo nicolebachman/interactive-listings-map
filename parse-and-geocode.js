@@ -134,7 +134,7 @@ function findHeaderRow(rows, headerAliases) {
       Object.entries(row.values).map(([col, value]) => [col, normalizeHeader(value)])
     );
 
-    for (const [fieldName, aliases] of Object.entries(headerAliases)) {
+    for (const [, aliases] of Object.entries(headerAliases)) {
       const foundColumn = Object.entries(normalizedByColumn).find(([, value]) =>
         aliases.includes(value)
       );
@@ -215,6 +215,17 @@ function validateParsedAddress(rawAddress, parsedAddress) {
   // Portfolio and rollup entries should be skipped instead of guessed.
   if (/\bportfolio\b/i.test(rawAddress) || /\bportfolio\b/i.test(streetAddress)) {
     return "portfolio entry is not a single street address";
+  }
+
+  // Parcel/block descriptions are too ambiguous to geocode reliably unless
+  // they also include a conventional street suffix.
+  if (/\bblock\b/i.test(streetAddress)) {
+    const hasStreetSuffix = /\b(st|street|rd|road|ave|avenue|blvd|boulevard|dr|drive|ln|lane|ct|court|cir|circle|pl|place|way|pkwy|parkway|hwy|highway|trl|trail|ter|terrace)\b/i.test(
+      streetAddress
+    );
+    if (!hasStreetSuffix) {
+      return "parcel/block entry is not a normal street address";
+    }
   }
 
   // For this dataset, valid listing addresses should include a street number.
