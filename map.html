@@ -58,10 +58,10 @@
 
     .eyebrow {
       margin: 0;
-      font-size: 0.72rem;
-      letter-spacing: 0.22em;
+      font-size: 0.88rem;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--ink);
       font-family: Arial, sans-serif;
     }
 
@@ -468,9 +468,29 @@
       }
     }
 
+    function deepenWaterLabelColor() {
+      const labelColor = "#3f6f8e";
+      const styleLayers = map.getStyle()?.layers || [];
+
+      for (const layer of styleLayers) {
+        if (layer.type !== "symbol") {
+          continue;
+        }
+
+        if (!/\bwater\b/i.test(layer.id) && !/\bmarine\b/i.test(layer.id)) {
+          continue;
+        }
+
+        if (layer.paint?.["text-color"] !== undefined) {
+          map.setPaintProperty(layer.id, "text-color", labelColor);
+        }
+      }
+    }
+
     async function loadListings() {
       try {
         unifyWaterColor();
+        deepenWaterLabelColor();
 
         const response = await fetch("./locations.geojson");
         if (!response.ok) {
@@ -707,4 +727,5 @@
   </script>
 </body>
 </html>
+
 
