@@ -697,6 +697,7 @@
 
     const squareFootagePalette = ["#1f6d8c", "#3d8ea1", "#70b4be", "#a7d4d9"];
     const acreagePalette = ["#3d6b2f", "#5d9145", "#83b468", "#b3d39b"];
+    const noSquareFootageColor = "#8c949b";
 
     function hueDistance(a, b) {
       const diff = Math.abs(a - b) % 360;
@@ -766,7 +767,7 @@
     function getSquareFootageColor(value, rangeSpecs) {
       const numericValue = Number(value);
       if (!Number.isFinite(numericValue) || !Array.isArray(rangeSpecs) || rangeSpecs.length === 0) {
-        return squareFootagePalette[1];
+        return noSquareFootageColor;
       }
 
       for (let index = 0; index < rangeSpecs.length; index += 1) {
@@ -1064,6 +1065,12 @@
       const maxSf = parseNumericValue(document.getElementById("filterSfMax").value);
       const minPrice = parseNumericValue(document.getElementById("filterPriceMin").value);
       const maxPrice = parseNumericValue(document.getElementById("filterPriceMax").value);
+      const sfFilterIsNarrowed = Boolean(
+        filterBounds && (minSf > filterBounds.sfMin || maxSf < filterBounds.sfMax)
+      );
+      const priceFilterIsNarrowed = Boolean(
+        filterBounds && (minPrice > filterBounds.priceMin || maxPrice < filterBounds.priceMax)
+      );
 
       const filteredFeatures = allPointFeatures.filter((feature) => {
         const properties = feature.properties || {};
@@ -1081,19 +1088,27 @@
           return false;
         }
 
-        if (minSf !== null && (squareFootage === null || squareFootage < minSf)) {
+        if (sfFilterIsNarrowed && squareFootage === null) {
           return false;
         }
 
-        if (maxSf !== null && (squareFootage === null || squareFootage > maxSf)) {
+        if (minSf !== null && squareFootage !== null && squareFootage < minSf) {
           return false;
         }
 
-        if (minPrice !== null && (askingPrice === null || askingPrice < minPrice)) {
+        if (maxSf !== null && squareFootage !== null && squareFootage > maxSf) {
           return false;
         }
 
-        if (maxPrice !== null && (askingPrice === null || askingPrice > maxPrice)) {
+        if (priceFilterIsNarrowed && askingPrice === null) {
+          return false;
+        }
+
+        if (minPrice !== null && askingPrice !== null && askingPrice < minPrice) {
+          return false;
+        }
+
+        if (maxPrice !== null && askingPrice !== null && askingPrice > maxPrice) {
           return false;
         }
 
@@ -1262,7 +1277,9 @@
 
           feature.properties = {
             ...feature.properties,
-            marker_color: getSquareFootageColor(squareFootage, squareFootageRangeSpecs)
+            marker_color: squareFootage === null
+              ? noSquareFootageColor
+              : getSquareFootageColor(squareFootage, squareFootageRangeSpecs)
           };
         });
         allPointFeatures = pointFeatures;
