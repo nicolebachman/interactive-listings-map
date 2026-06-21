@@ -385,7 +385,7 @@
       z-index: 2;
       width: min(270px, calc(100% - 290px));
       padding: 10px 12px 12px;
-      border-radius: 18px;
+      border-radius: 0;
       background: rgba(255, 255, 255, 0.92);
       box-shadow: 0 10px 24px rgba(31, 42, 51, 0.14);
       backdrop-filter: blur(8px);
@@ -416,7 +416,7 @@
 
     .legend-panel.is-collapsed {
       padding: 6px 10px;
-      border-radius: 999px;
+      border-radius: 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -561,7 +561,7 @@
         left: auto;
         width: min(170px, calc(100% - 250px));
         bottom: 24px;
-        border-radius: 12px;
+        border-radius: 0;
       }
     }
   </style>
@@ -624,7 +624,7 @@
         <div id="map" aria-label="Map of property listings"></div>
         <aside class="legend-panel" aria-label="Listing legend">
           <div class="legend-section-heading">
-            <h3 class="legend-subtitle">Square Footage</h3>
+            <h3 class="legend-subtitle">BUILDINGS (SQ FT)</h3>
             <span class="legend-toggle-label">Legend</span>
             <button
               id="legendToggle"
@@ -639,7 +639,7 @@
               <div id="legendSfItems" class="legend-items"></div>
             </section>
             <section class="legend-section" aria-label="Acreage ranges">
-              <h3 class="legend-subtitle">Land Acreage</h3>
+              <h3 class="legend-subtitle">LAND (AC)</h3>
               <div id="legendAcreageItems" class="legend-items"></div>
             </section>
           </div>
@@ -926,6 +926,7 @@
         "Landlord Company/Seller Company"
       ]);
       const squareFootage = pickFirstNonEmpty(properties, ["square_footage", "Square Footage"]);
+      const acreage = pickFirstNonEmpty(properties, ["acreage", "Acreage"]);
       const leaseSquareFootage = pickFirstNonEmpty(properties, [
         "lease_square_footage",
         "Lease Square Footage"
@@ -944,6 +945,7 @@
         ["Record Type", recordType],
         ["Asking Price", askingPrice],
         ["Landlord/Seller", landlordCompany],
+        ["Acreage", acreage],
         ["Effective Date", effectiveDate],
         ["Expiration Date", expirationDate]
       ];
@@ -1037,6 +1039,39 @@
 
         if (layer.paint?.["text-color"] !== undefined) {
           map.setPaintProperty(layer.id, "text-color", labelColor);
+        }
+      }
+    }
+
+    function warmLandColor() {
+      const landColor = "#e7dfd2";
+      const styleLayers = map.getStyle()?.layers || [];
+
+      for (const layer of styleLayers) {
+        if (layer.type !== "fill") {
+          continue;
+        }
+
+        if (!/\b(background|land|park|grass|wood|natural|landcover)\b/i.test(layer.id)) {
+          continue;
+        }
+
+        if (layer.paint?.["fill-color"] !== undefined) {
+          map.setPaintProperty(layer.id, "fill-color", landColor);
+        }
+      }
+    }
+
+    function removeHillshade() {
+      const styleLayers = map.getStyle()?.layers || [];
+
+      for (const layer of styleLayers) {
+        if (!/\b(hillshade|terrain)\b/i.test(layer.id)) {
+          continue;
+        }
+
+        if (map.getLayer(layer.id)) {
+          map.setLayoutProperty(layer.id, "visibility", "none");
         }
       }
     }
@@ -1244,6 +1279,8 @@
 
     async function loadListings() {
       try {
+        warmLandColor();
+        removeHillshade();
         unifyWaterColor();
         deepenWaterLabelColor();
         bindLegendToggle();
@@ -1490,6 +1527,7 @@
   </script>
 </body>
 </html>
+
 
 
 
