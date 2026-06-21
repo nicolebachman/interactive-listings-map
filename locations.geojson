@@ -2247,44 +2247,6 @@
       "type": "Feature",
       "properties": {
         "Owner": "Michael Torsiello",
-        "Property": "Logan Township, NJ - Block 201/6,7, 8, 42,47,48,50 & Block 3104/1,2,3,4",
-        "Deal: Deal Name": "Logan Township, NJ - Block 201/6,7, 8, 42,47,48,50 & Block 3104/1,2,3,4",
-        "Deal: Record Type": "Sale",
-        "Asking Price": "",
-        "Lease Rate": "",
-        "Landlord Company/Seller Company": "Leslie Heaney",
-        "Listing Effective Date": "2/18/2026",
-        "Listing Expiration Date": "2/17/2027",
-        "Square Footage": "",
-        "Acreage": "658.82100000000003",
-        "Lease Square Footage": "",
-        "broker_name": "Michael Torsiello",
-        "address": "Block 201/6,7, 8, 42,47,48,50 & Block 3104/1,2,3,4, Logan Township, NJ",
-        "city_state": "Logan Township, NJ",
-        "street_address": "Block 201/6,7, 8, 42,47,48,50 & Block 3104/1,2,3,4",
-        "deal_name": "Logan Township, NJ - Block 201/6,7, 8, 42,47,48,50 & Block 3104/1,2,3,4",
-        "record_type": "Sale",
-        "asking_price": "",
-        "lease_rate": "",
-        "landlord_company": "Leslie Heaney",
-        "listing_effective_date": "2/18/2026",
-        "listing_expiration_date": "2/17/2027",
-        "square_footage": "",
-        "acreage": "658.82100000000003",
-        "lease_square_footage": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          30.903492,
-          3.043255
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "Owner": "Michael Torsiello",
         "Property": "Bellmawr, NJ - 960 Creek Road",
         "Deal: Deal Name": "Bellmawr, NJ - 960 Creek Road",
         "Deal: Record Type": "Lease",
