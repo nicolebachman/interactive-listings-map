@@ -695,7 +695,7 @@
       return `hsl(${hue}, 65%, 50%)`;
     }
 
-    const squareFootagePalette = ["#1f6d8c", "#3d8ea1", "#70b4be", "#a7d4d9"];
+    const squareFootagePalette = ["#1f6d8c", "#3d8ea1", "#70b4be", "#7fd6ec"];
     const acreagePalette = ["#3d6b2f", "#5d9145", "#83b468", "#b3d39b"];
     const noSquareFootageColor = "#8c949b";
 
@@ -746,22 +746,35 @@
       return colorMap;
     }
 
-    function getSquareFootageRangeSpecs(minValue, maxValue) {
+    function getSquareFootageRangeSpecs(minValue) {
       const safeMin = Number.isFinite(minValue) ? minValue : 0;
-      const safeMax = Number.isFinite(maxValue) ? maxValue : safeMin;
-      const span = Math.max(safeMax - safeMin, 1);
-      const step = span / 4;
 
-      return squareFootagePalette.map((color, index) => {
-        const min = index === 0 ? safeMin : safeMin + (step * index);
-        const max = index === 3 ? safeMax : safeMin + (step * (index + 1));
-        return {
-          color,
-          min,
-          max,
-          label: `${formatCompactNumber(min)} - ${formatCompactNumber(max)}`
-        };
-      });
+      return [
+        {
+          color: squareFootagePalette[0],
+          min: safeMin,
+          max: 100000,
+          label: "0 - 100k"
+        },
+        {
+          color: squareFootagePalette[1],
+          min: 100000,
+          max: 500000,
+          label: "100k - 500k"
+        },
+        {
+          color: squareFootagePalette[2],
+          min: 500000,
+          max: 1000000,
+          label: "500k - 1M"
+        },
+        {
+          color: squareFootagePalette[3],
+          min: 1000000,
+          max: Number.POSITIVE_INFINITY,
+          label: "1M+"
+        }
+      ];
     }
 
     function getSquareFootageColor(value, rangeSpecs) {
@@ -772,8 +785,7 @@
 
       for (let index = 0; index < rangeSpecs.length; index += 1) {
         const spec = rangeSpecs[index];
-        const isLast = index === rangeSpecs.length - 1;
-        if (numericValue >= spec.min && (isLast ? numericValue <= spec.max : numericValue < spec.max)) {
+        if (numericValue >= spec.min && numericValue < spec.max) {
           return spec.color;
         }
       }
@@ -1066,10 +1078,10 @@
       const minPrice = parseNumericValue(document.getElementById("filterPriceMin").value);
       const maxPrice = parseNumericValue(document.getElementById("filterPriceMax").value);
       const sfFilterIsNarrowed = Boolean(
-        filterBounds && (minSf > filterBounds.sfMin || maxSf < filterBounds.sfMax)
+        filterBounds && (minSf > filterBounds.sfMin || maxSf < filterBounds.sfMax - 0.0001)
       );
       const priceFilterIsNarrowed = Boolean(
-        filterBounds && (minPrice > filterBounds.priceMin || maxPrice < filterBounds.priceMax)
+        filterBounds && (minPrice > filterBounds.priceMin || maxPrice < filterBounds.priceMax - 0.0001)
       );
 
       const filteredFeatures = allPointFeatures.filter((feature) => {
@@ -1176,23 +1188,22 @@
       const sfMaxInput = document.getElementById("filterSfMax");
       sfMinInput.min = String(sfMin);
       sfMinInput.max = String(sfMax);
-      sfMinInput.step = "1000";
+      sfMinInput.step = "any";
       sfMinInput.value = String(sfMin);
       sfMaxInput.min = String(sfMin);
       sfMaxInput.max = String(sfMax);
-      sfMaxInput.step = "1000";
+      sfMaxInput.step = "any";
       sfMaxInput.value = String(sfMax);
 
       const priceMinInput = document.getElementById("filterPriceMin");
       const priceMaxInput = document.getElementById("filterPriceMax");
-      const priceStep = priceMax >= 1000000 ? 100000 : 10000;
       priceMinInput.min = String(priceMin);
       priceMinInput.max = String(priceMax);
-      priceMinInput.step = String(priceStep);
+      priceMinInput.step = "any";
       priceMinInput.value = String(priceMin);
       priceMaxInput.min = String(priceMin);
       priceMaxInput.max = String(priceMax);
-      priceMaxInput.step = String(priceStep);
+      priceMaxInput.step = "any";
       priceMaxInput.value = String(priceMax);
 
       syncRangePair("Sf");
@@ -1262,8 +1273,7 @@
           ))
           .filter((value) => value !== null);
         const sfMin = sfValues.length ? Math.min(...sfValues) : 0;
-        const sfMax = sfValues.length ? Math.max(...sfValues) : 1;
-        squareFootageRangeSpecs = getSquareFootageRangeSpecs(sfMin, sfMax);
+        squareFootageRangeSpecs = getSquareFootageRangeSpecs(sfMin);
         const acreageMin = acreageValues.length ? Math.min(...acreageValues) : 0;
         const acreageMax = acreageValues.length ? Math.max(...acreageValues) : 1;
         acreageRangeSpecs = getAcreageRangeSpecs(acreageMin, acreageMax);
@@ -1480,5 +1490,6 @@
   </script>
 </body>
 </html>
+
 
 
