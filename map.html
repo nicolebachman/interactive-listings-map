@@ -1072,6 +1072,21 @@
       }
     }
 
+    function delayStateLabelVisibility() {
+      const minStateLabelZoom = 4.2;
+      const layerId = "state-label";
+      const styleLayer = map.getStyle()?.layers?.find((layer) => layer.id === layerId);
+      if (!styleLayer) {
+        return;
+      }
+
+      map.setLayerZoomRange(
+        layerId,
+        Math.max(styleLayer.minzoom ?? 0, minStateLabelZoom),
+        styleLayer.maxzoom
+      );
+    }
+
     let allPointFeatures = [];
     let popup = null;
     let filterBounds = null;
@@ -1279,6 +1294,7 @@
         deepenWaterLabelColor();
         removeMountainShading();
         delayHighwayVisibility();
+        delayStateLabelVisibility();
         bindLegendToggle();
 
         const response = await fetch("./locations.geojson");
@@ -1523,4 +1539,5 @@
   </script>
 </body>
 </html>
+
 
