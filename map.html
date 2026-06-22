@@ -696,7 +696,7 @@
     }
 
     const squareFootagePalette = ["#f28a7f", "#e45f57", "#c93b3e", "#8f1f28"];
-    const acreagePalette = ["#9dcca0", "#78b47d", "#3d7f4a", "#1f5a31"];
+    const acreagePalette = ["#7dc9a3", "#2fa06c", "#0d7a4f", "#085738"];
     const noSquareFootageColor = "#8c949b";
 
     function hueDistance(a, b) {
@@ -793,22 +793,33 @@
       return rangeSpecs[rangeSpecs.length - 1].color;
     }
 
-    function getAcreageRangeSpecs(minValue, maxValue) {
-      const safeMin = Number.isFinite(minValue) ? minValue : 0;
-      const safeMax = Number.isFinite(maxValue) ? maxValue : safeMin;
-      const span = Math.max(safeMax - safeMin, 1);
-      const step = span / 4;
-
-      return acreagePalette.map((color, index) => {
-        const min = index === 0 ? safeMin : safeMin + (step * index);
-        const max = index === 3 ? safeMax : safeMin + (step * (index + 1));
-        return {
-          color,
-          min,
-          max,
-          label: `${Number(min).toFixed(min < 10 ? 1 : 0)} - ${Number(max).toFixed(max < 10 ? 1 : 0)}`
-        };
-      });
+    function getAcreageRangeSpecs() {
+      return [
+        {
+          color: acreagePalette[0],
+          min: 0,
+          max: 25,
+          label: "0 - 25"
+        },
+        {
+          color: acreagePalette[1],
+          min: 25,
+          max: 50,
+          label: "25 - 50"
+        },
+        {
+          color: acreagePalette[2],
+          min: 50,
+          max: 100,
+          label: "50 - 100"
+        },
+        {
+          color: acreagePalette[3],
+          min: 100,
+          max: Number.POSITIVE_INFINITY,
+          label: "100+"
+        }
+      ];
     }
 
     function getAcreageColor(value, rangeSpecs) {
@@ -926,6 +937,7 @@
         "Landlord Company/Seller Company"
       ]);
       const squareFootage = pickFirstNonEmpty(properties, ["square_footage", "Square Footage"]);
+      const acreage = pickFirstNonEmpty(properties, ["acreage", "Acreage"]);
       const leaseSquareFootage = pickFirstNonEmpty(properties, [
         "lease_square_footage",
         "Lease Square Footage"
@@ -938,17 +950,23 @@
         "listing_expiration_date",
         "Listing Expiration Date"
       ]);
+      const isLandListing = !String(squareFootage).trim() && String(acreage).trim();
+      const popupMetaValue = isLandListing
+        ? `${acreage} AC`
+        : `${squareFootage || "N/A"} SF`;
       const isLease = String(recordType).trim().toLowerCase() === "lease";
       const fields = [
         ["Broker", brokerName],
         ["Record Type", recordType],
         ["Asking Price", askingPrice],
+        ["Acreage", acreage],
         ["Landlord/Seller", landlordCompany],
         ["Effective Date", effectiveDate],
         ["Expiration Date", expirationDate]
       ];
 
       if (isLease) {
+        fields.splice(2, 1);
         fields.splice(3, 0, ["Lease Rate", leaseRate]);
         fields.splice(6, 0, ["Lease Sq Ft", leaseSquareFootage]);
       }
@@ -958,7 +976,7 @@
           <h3>${escapeHtml(address)}</h3>
           <div class="popup-broker">
             <span class="broker-dot" style="background:${escapeHtml(markerColor)}" aria-hidden="true"></span>
-            <span class="popup-meta">${escapeHtml(squareFootage || "N/A")} SF</span>
+            <span class="popup-meta">${escapeHtml(popupMetaValue)}</span>
           </div>
           <dl>
             ${fields.map(([label, value, isHtml]) => `
@@ -1038,6 +1056,25 @@
         if (layer.paint?.["text-color"] !== undefined) {
           map.setPaintProperty(layer.id, "text-color", labelColor);
         }
+      }
+    }
+
+    function warmLandPaletteSlightly() {
+      const layerColors = {
+        land: { property: "background-color", value: "#f0efe8" },
+        landcover: { property: "fill-color", value: "#dde2d0" },
+        "national-park": { property: "fill-color", value: "#d2dbbf" },
+        landuse: { property: "fill-color", value: "#e8e7de" },
+        "land-structure-polygon": { property: "fill-color", value: "#e8e6de" },
+        "land-structure-line": { property: "line-color", value: "#e4e1d8" }
+      };
+
+      for (const [layerId, config] of Object.entries(layerColors)) {
+        if (!map.getLayer(layerId)) {
+          continue;
+        }
+
+        map.setPaintProperty(layerId, config.property, config.value);
       }
     }
 
@@ -1292,6 +1329,7 @@
       try {
         unifyWaterColor();
         deepenWaterLabelColor();
+        warmLandPaletteSlightly();
         removeMountainShading();
         delayHighwayVisibility();
         delayStateLabelVisibility();
@@ -1333,11 +1371,16 @@
           const squareFootage = parseNumericValue(
             pickFirstNonEmpty(feature.properties, ["square_footage", "Square Footage"])
           );
+          const acreage = parseNumericValue(
+            pickFirstNonEmpty(feature.properties, ["acreage", "Acreage"])
+          );
 
           feature.properties = {
             ...feature.properties,
             marker_color: squareFootage === null
-              ? noSquareFootageColor
+              ? (acreage === null
+                ? noSquareFootageColor
+                : getAcreageColor(acreage, acreageRangeSpecs))
               : getSquareFootageColor(squareFootage, squareFootageRangeSpecs)
           };
         });
@@ -1539,5 +1582,4 @@
   </script>
 </body>
 </html>
-
 
