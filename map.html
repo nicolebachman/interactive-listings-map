@@ -52,21 +52,23 @@
 
     .page-header {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 14px 20px 12px;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start;
+      gap: 22px;
+      padding: 18px 20px 16px;
       background: #ffffff;
     }
 
     .eyebrow {
       margin: 0;
-      font-size: 0.8rem;
+      font-size: 1rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--ink);
       font-family: Arial, sans-serif;
       flex: 0 0 auto;
+      align-self: flex-start;
     }
 
     #map {
@@ -205,13 +207,13 @@
 
     .filter-bar {
       position: relative;
-      width: min(820px, 100%);
+      width: 100%;
       display: flex;
       align-items: center;
-      justify-content: flex-end;
-      flex-wrap: nowrap;
+      justify-content: flex-start;
+      flex-wrap: wrap;
       gap: 18px;
-      margin-left: auto;
+      margin-left: 0;
       padding: 0;
       background: transparent;
       box-shadow: none;
@@ -519,9 +521,7 @@
       }
 
       .page-header {
-        flex-direction: column;
-        align-items: stretch;
-        padding: 12px 16px 10px;
+        padding: 16px 16px 14px;
       }
 
       #map {
@@ -532,8 +532,8 @@
       .filter-bar {
         width: 100%;
         gap: 18px;
-        justify-content: flex-end;
-        flex-wrap: nowrap;
+        justify-content: flex-start;
+        flex-wrap: wrap;
       }
 
       .filter-bar label,
@@ -570,15 +570,25 @@
   <div class="page">
     <div class="card">
       <header class="page-header">
-        <p class="eyebrow">Global Listings</p>
+        <p class="eyebrow">Binswanger National Listings</p>
         <form id="filterBar" class="filter-bar" aria-label="Listing filters">
           <div class="filter-row">
-            <span class="filter-title">Type</span>
+            <span class="filter-title">Deal</span>
             <label>
               <select id="filterType">
                 <option value="">All</option>
                 <option value="sale">Sale</option>
                 <option value="lease">Lease</option>
+              </select>
+            </label>
+          </div>
+          <div class="filter-row">
+            <span class="filter-title">Type</span>
+            <label>
+              <select id="filterPropertyType">
+                <option value="">All</option>
+                <option value="building">Buildings</option>
+                <option value="land">Land</option>
               </select>
             </label>
           </div>
@@ -600,17 +610,17 @@
           </div>
           <div class="filter-row">
             <div class="filter-group filter-range">
-              <span class="filter-title">Price</span>
+              <span class="filter-title">ACRES</span>
               <div class="filter-values">
-                <span id="filterPriceMinValue">$0</span>
+                <span id="filterAcreageMinValue">0.0</span>
               </div>
               <div class="range-pair">
-                <div id="filterPriceFill" class="range-fill"></div>
-                <input id="filterPriceMin" type="range" min="0" max="100" step="100000" value="0">
-                <input id="filterPriceMax" type="range" min="0" max="100" step="100000" value="100">
+                <div id="filterAcreageFill" class="range-fill"></div>
+                <input id="filterAcreageMin" type="range" min="0" max="100" step="1" value="0">
+                <input id="filterAcreageMax" type="range" min="0" max="100" step="1" value="100">
               </div>
               <div class="filter-values">
-                <span id="filterPriceMaxValue">$0</span>
+                <span id="filterAcreageMaxValue">0</span>
               </div>
             </div>
           </div>
@@ -1021,6 +1031,23 @@
       return `${prefix}${Math.round(number)}`;
     }
 
+    function formatAcreageValue(value) {
+      const number = Number(value);
+      if (!Number.isFinite(number)) {
+        return "0";
+      }
+
+      if (number === 0) {
+        return "0.0";
+      }
+
+      if (Number.isInteger(number)) {
+        return String(number);
+      }
+
+      return number.toFixed(number < 10 ? 1 : 0);
+    }
+
     function unifyWaterColor() {
       const waterColor = "#9fc7d8";
       const styleLayers = map.getStyle()?.layers || [];
@@ -1156,15 +1183,18 @@
       }
 
       const typeValue = String(document.getElementById("filterType").value || "").trim().toLowerCase();
+      const propertyTypeValue = String(
+        document.getElementById("filterPropertyType").value || ""
+      ).trim().toLowerCase();
       const minSf = parseNumericValue(document.getElementById("filterSfMin").value);
       const maxSf = parseNumericValue(document.getElementById("filterSfMax").value);
-      const minPrice = parseNumericValue(document.getElementById("filterPriceMin").value);
-      const maxPrice = parseNumericValue(document.getElementById("filterPriceMax").value);
+      const minAcreage = parseNumericValue(document.getElementById("filterAcreageMin").value);
+      const maxAcreage = parseNumericValue(document.getElementById("filterAcreageMax").value);
       const sfFilterIsNarrowed = Boolean(
         filterBounds && (minSf > filterBounds.sfMin || maxSf < filterBounds.sfMax - 0.0001)
       );
-      const priceFilterIsNarrowed = Boolean(
-        filterBounds && (minPrice > filterBounds.priceMin || maxPrice < filterBounds.priceMax - 0.0001)
+      const acreageFilterIsNarrowed = Boolean(
+        filterBounds && (minAcreage > filterBounds.acreageMin || maxAcreage < filterBounds.acreageMax - 0.0001)
       );
 
       const filteredFeatures = allPointFeatures.filter((feature) => {
@@ -1175,11 +1205,16 @@
         const squareFootage = parseNumericValue(
           pickFirstNonEmpty(properties, ["square_footage", "Square Footage"])
         );
-        const askingPrice = parseNumericValue(
-          pickFirstNonEmpty(properties, ["asking_price", "Asking Price"])
+        const acreage = parseNumericValue(
+          pickFirstNonEmpty(properties, ["acreage", "Acreage"])
         );
+        const propertyType = squareFootage === null && acreage !== null ? "land" : "building";
 
         if (typeValue && recordType !== typeValue) {
+          return false;
+        }
+
+        if (propertyTypeValue && propertyType !== propertyTypeValue) {
           return false;
         }
 
@@ -1195,15 +1230,15 @@
           return false;
         }
 
-        if (priceFilterIsNarrowed && askingPrice === null) {
+        if (acreageFilterIsNarrowed && acreage === null) {
           return false;
         }
 
-        if (minPrice !== null && askingPrice !== null && askingPrice < minPrice) {
+        if (minAcreage !== null && acreage !== null && acreage < minAcreage) {
           return false;
         }
 
-        if (maxPrice !== null && askingPrice !== null && askingPrice > maxPrice) {
+        if (maxAcreage !== null && acreage !== null && acreage > maxAcreage) {
           return false;
         }
 
@@ -1235,10 +1270,11 @@
 
       const minLabel = document.getElementById(`filter${kind}MinValue`);
       const maxLabel = document.getElementById(`filter${kind}MaxValue`);
-      const prefix = kind === "Price" ? "$" : "";
+      const minDisplay = kind === "Acreage" ? formatAcreageValue(minValue) : formatCompactNumber(minValue);
+      const maxDisplay = kind === "Acreage" ? formatAcreageValue(maxValue) : formatCompactNumber(maxValue);
 
-      minLabel.textContent = formatCompactNumber(minValue, prefix);
-      maxLabel.textContent = formatCompactNumber(maxValue, prefix);
+      minLabel.textContent = minDisplay;
+      maxLabel.textContent = maxDisplay;
 
       if (fill && Number.isFinite(minBound) && Number.isFinite(maxBound) && maxBound > minBound) {
         const startPercent = ((minValue - minBound) / (maxBound - minBound)) * 100;
@@ -1254,18 +1290,18 @@
           pickFirstNonEmpty(feature.properties, ["square_footage", "Square Footage"])
         ))
         .filter((value) => value !== null);
-      const priceValues = features
+      const acreageValues = features
         .map((feature) => parseNumericValue(
-          pickFirstNonEmpty(feature.properties, ["asking_price", "Asking Price"])
+          pickFirstNonEmpty(feature.properties, ["acreage", "Acreage"])
         ))
         .filter((value) => value !== null);
 
       const sfMin = sfValues.length ? Math.min(...sfValues) : 0;
       const sfMax = sfValues.length ? Math.max(...sfValues) : 1000000;
-      const priceMin = priceValues.length ? Math.min(...priceValues) : 0;
-      const priceMax = priceValues.length ? Math.max(...priceValues) : 10000000;
+      const acreageMin = 0;
+      const acreageMax = acreageValues.length ? Math.max(...acreageValues) : 100;
 
-      filterBounds = { sfMin, sfMax, priceMin, priceMax };
+      filterBounds = { sfMin, sfMax, acreageMin, acreageMax };
 
       const sfMinInput = document.getElementById("filterSfMin");
       const sfMaxInput = document.getElementById("filterSfMax");
@@ -1278,23 +1314,24 @@
       sfMaxInput.step = "any";
       sfMaxInput.value = String(sfMax);
 
-      const priceMinInput = document.getElementById("filterPriceMin");
-      const priceMaxInput = document.getElementById("filterPriceMax");
-      priceMinInput.min = String(priceMin);
-      priceMinInput.max = String(priceMax);
-      priceMinInput.step = "any";
-      priceMinInput.value = String(priceMin);
-      priceMaxInput.min = String(priceMin);
-      priceMaxInput.max = String(priceMax);
-      priceMaxInput.step = "any";
-      priceMaxInput.value = String(priceMax);
+      const acreageMinInput = document.getElementById("filterAcreageMin");
+      const acreageMaxInput = document.getElementById("filterAcreageMax");
+      acreageMinInput.min = String(acreageMin);
+      acreageMinInput.max = String(acreageMax);
+      acreageMinInput.step = "any";
+      acreageMinInput.value = String(acreageMin);
+      acreageMaxInput.min = String(acreageMin);
+      acreageMaxInput.max = String(acreageMax);
+      acreageMaxInput.step = "any";
+      acreageMaxInput.value = String(acreageMax);
 
       syncRangePair("Sf");
-      syncRangePair("Price");
+      syncRangePair("Acreage");
     }
 
     function bindFilters() {
       document.getElementById("filterType").addEventListener("change", applyFilters);
+      document.getElementById("filterPropertyType").addEventListener("change", applyFilters);
       document.getElementById("filterSfMin").addEventListener("input", () => {
         syncRangePair("Sf");
         applyFilters();
@@ -1303,23 +1340,24 @@
         syncRangePair("Sf");
         applyFilters();
       });
-      document.getElementById("filterPriceMin").addEventListener("input", () => {
-        syncRangePair("Price");
+      document.getElementById("filterAcreageMin").addEventListener("input", () => {
+        syncRangePair("Acreage");
         applyFilters();
       });
-      document.getElementById("filterPriceMax").addEventListener("input", () => {
-        syncRangePair("Price");
+      document.getElementById("filterAcreageMax").addEventListener("input", () => {
+        syncRangePair("Acreage");
         applyFilters();
       });
       document.getElementById("clearFilters").addEventListener("click", () => {
         document.getElementById("filterType").value = "";
+        document.getElementById("filterPropertyType").value = "";
         if (filterBounds) {
           document.getElementById("filterSfMin").value = String(filterBounds.sfMin);
           document.getElementById("filterSfMax").value = String(filterBounds.sfMax);
-          document.getElementById("filterPriceMin").value = String(filterBounds.priceMin);
-          document.getElementById("filterPriceMax").value = String(filterBounds.priceMax);
+          document.getElementById("filterAcreageMin").value = String(filterBounds.acreageMin);
+          document.getElementById("filterAcreageMax").value = String(filterBounds.acreageMax);
           syncRangePair("Sf");
-          syncRangePair("Price");
+          syncRangePair("Acreage");
         }
         applyFilters();
       });
