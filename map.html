@@ -396,7 +396,7 @@
       width: 24px;
       height: 24px;
       border: 0;
-      border-radius: 999px;
+      border-radius: 0;
       background: rgba(31, 42, 51, 0.08);
       color: var(--ink);
       font-family: Arial, sans-serif;
@@ -695,8 +695,8 @@
       return `hsl(${hue}, 65%, 50%)`;
     }
 
-    const squareFootagePalette = ["#1f6d8c", "#3d8ea1", "#70b4be", "#7fd6ec"];
-    const acreagePalette = ["#3d6b2f", "#5d9145", "#83b468", "#b3d39b"];
+    const squareFootagePalette = ["#7fd6ec", "#70b4be", "#3d8ea1", "#1f6d8c"];
+    const acreagePalette = ["#b3d39b", "#83b468", "#5d9145", "#3d6b2f"];
     const noSquareFootageColor = "#8c949b";
 
     function hueDistance(a, b) {
@@ -926,7 +926,6 @@
         "Landlord Company/Seller Company"
       ]);
       const squareFootage = pickFirstNonEmpty(properties, ["square_footage", "Square Footage"]);
-      const acreage = pickFirstNonEmpty(properties, ["acreage", "Acreage"]);
       const leaseSquareFootage = pickFirstNonEmpty(properties, [
         "lease_square_footage",
         "Lease Square Footage"
@@ -945,7 +944,6 @@
         ["Record Type", recordType],
         ["Asking Price", askingPrice],
         ["Landlord/Seller", landlordCompany],
-        ["Acreage", acreage],
         ["Effective Date", effectiveDate],
         ["Expiration Date", expirationDate]
       ];
@@ -1043,36 +1041,34 @@
       }
     }
 
-    function warmLandColor() {
-      const landColor = "#e7dfd2";
-      const styleLayers = map.getStyle()?.layers || [];
-
-      for (const layer of styleLayers) {
-        if (layer.type !== "fill") {
-          continue;
-        }
-
-        if (!/\b(background|land|park|grass|wood|natural|landcover)\b/i.test(layer.id)) {
-          continue;
-        }
-
-        if (layer.paint?.["fill-color"] !== undefined) {
-          map.setPaintProperty(layer.id, "fill-color", landColor);
-        }
+    function removeMountainShading() {
+      const hillshadeLayer = map.getStyle()?.layers?.find((layer) => layer.id === "hillshade");
+      if (!hillshadeLayer) {
+        return;
       }
+
+      map.setLayoutProperty("hillshade", "visibility", "none");
     }
 
-    function removeHillshade() {
+    function delayHighwayVisibility() {
+      const minHighwayZoom = 5.75;
+      const highwayLayerIds = [
+        "road-motorway-trunk-case",
+        "road-motorway-trunk"
+      ];
       const styleLayers = map.getStyle()?.layers || [];
 
-      for (const layer of styleLayers) {
-        if (!/\b(hillshade|terrain)\b/i.test(layer.id)) {
+      for (const layerId of highwayLayerIds) {
+        const layer = styleLayers.find((candidate) => candidate.id === layerId);
+        if (!layer) {
           continue;
         }
 
-        if (map.getLayer(layer.id)) {
-          map.setLayoutProperty(layer.id, "visibility", "none");
-        }
+        map.setLayerZoomRange(
+          layerId,
+          Math.max(layer.minzoom ?? 0, minHighwayZoom),
+          layer.maxzoom
+        );
       }
     }
 
@@ -1279,10 +1275,10 @@
 
     async function loadListings() {
       try {
-        warmLandColor();
-        removeHillshade();
         unifyWaterColor();
         deepenWaterLabelColor();
+        removeMountainShading();
+        delayHighwayVisibility();
         bindLegendToggle();
 
         const response = await fetch("./locations.geojson");
@@ -1527,7 +1523,6 @@
   </script>
 </body>
 </html>
-
 
 
 
