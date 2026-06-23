@@ -608,6 +608,18 @@
     }
 
     @media (max-width: 640px) {
+      html,
+      body {
+        height: 100%;
+        overflow: hidden;
+      }
+
+      .page,
+      .card {
+        height: 100%;
+        overflow: hidden;
+      }
+
       .page-header {
         gap: 0;
         padding: 16px 16px 14px;
@@ -847,10 +859,10 @@
         position: absolute;
         top: 50%;
         right: 16px;
-        width: 8px;
-        height: 8px;
-        border-right: 1.5px solid #6a7784;
-        border-bottom: 1.5px solid #6a7784;
+        width: 6px;
+        height: 6px;
+        border-right: 1.25px solid #6a7784;
+        border-bottom: 1.25px solid #6a7784;
         transform: translateY(-65%) rotate(45deg);
         pointer-events: none;
       }
@@ -902,7 +914,7 @@
       .map-shell {
         display: block;
         width: 100%;
-        height: min(64vh, 500px);
+        height: min(60vh, 470px);
         aspect-ratio: auto;
         min-height: 0;
       }
@@ -931,6 +943,9 @@
         top: 8px;
         right: 8px;
         z-index: 1;
+        width: 30px;
+        height: 30px;
+        font-size: 1.1rem;
       }
 
       .legend-panel.is-collapsed {
@@ -2250,6 +2265,5 @@
   </script>
 </body>
 </html>
-
 
 
