@@ -58,6 +58,7 @@
       gap: 22px;
       padding: 18px 20px 16px;
       background: #ffffff;
+      position: relative;
     }
 
     .eyebrow {
@@ -68,8 +69,67 @@
       color: #15202a;
       font-family: Arial, sans-serif;
       font-weight: 700;
-      flex: 0 0 auto;
+      flex: 1 1 auto;
+      min-width: 0;
       align-self: flex-start;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .filter-toggle {
+      display: none;
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(31, 42, 51, 0.08);
+      color: var(--ink);
+      font-family: Arial, sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      line-height: 1.2;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .filter-toggle:hover {
+      background: rgba(31, 42, 51, 0.14);
+    }
+
+    .filter-toggle svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+    }
+
+    .filter-toggle.has-active-filters::after {
+      content: "";
+      position: absolute;
+      top: 7px;
+      right: 7px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #2f6fda;
+      box-shadow: 0 0 0 2px #ffffff;
+    }
+
+    .filter-actions {
+      display: none;
+    }
+
+    .filter-apply {
+      display: none;
+    }
+
+    .filter-clear-mobile {
+      display: none;
     }
 
     #map {
@@ -105,6 +165,7 @@
 
     .mapboxgl-popup {
       max-width: min(320px, calc(100vw - 32px));
+      z-index: 6;
     }
 
     .mapboxgl-popup-content {
@@ -517,44 +578,18 @@
       .card {
         min-height: 100vh;
         min-height: 100dvh;
-        height: 100vh;
-        height: 100dvh;
+        height: auto;
       }
 
-      .page-header {
-        padding: 16px 16px 14px;
+      .map-shell {
+        height: auto;
+        aspect-ratio: 1 / 1;
+        min-height: 360px;
       }
 
       #map {
         height: 100%;
         min-height: 320px;
-      }
-
-      .filter-bar {
-        width: 100%;
-        gap: 18px;
-        justify-content: flex-start;
-        flex-wrap: wrap;
-      }
-
-      .filter-bar label,
-      .filter-group {
-        flex: none;
-      }
-
-      .filter-row {
-        justify-content: flex-start;
-        flex-wrap: nowrap;
-      }
-
-      .filter-range {
-        min-width: 0;
-      }
-
-      .filter-bar input,
-      .filter-bar select,
-      .filter-bar button {
-        width: 100%;
       }
 
       .legend-panel {
@@ -565,13 +600,368 @@
         border-radius: 0;
       }
     }
+
+    @media (max-width: 640px) {
+      .page-header {
+        gap: 0;
+        padding: 16px 16px 14px;
+        overflow: visible;
+      }
+
+      .header-top {
+        position: relative;
+        display: block;
+        width: 100%;
+        min-width: 0;
+        padding-right: 48px;
+      }
+
+      .eyebrow {
+        font-size: 0.92rem;
+        line-height: 1.2;
+        padding-top: 0;
+        display: block;
+      }
+
+      .filter-toggle {
+        display: inline-flex;
+        position: absolute;
+        top: 50%;
+        right: -2px;
+        transform: translateY(-50%);
+        margin-left: 0;
+        z-index: 5;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 36px;
+        visibility: visible;
+      }
+
+      .filter-bar {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: 0;
+        z-index: 3;
+        display: none;
+        width: auto;
+        max-height: calc(100vh - 100px);
+        overflow: auto;
+        gap: 12px;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        padding: 14px 16px 16px;
+        border: 0;
+        border-radius: 0;
+        background: rgba(255, 255, 255, 0.995);
+        box-shadow: none;
+        backdrop-filter: none;
+      }
+
+      .filter-bar.is-open {
+        display: flex;
+      }
+
+      .card.mobile-filters-open .legend-panel {
+        display: none !important;
+      }
+
+      .card.mobile-popup-open .legend-panel {
+        display: none !important;
+      }
+
+      .filter-bar label,
+      .filter-group {
+        flex: none;
+        width: 100%;
+      }
+
+      .filter-row {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        width: 100%;
+        gap: 8px;
+      }
+
+      .filter-range {
+        min-width: 0;
+        width: 100%;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .filter-range > .filter-title {
+        width: 100%;
+        margin: 0 0 2px;
+        flex: 0 0 100%;
+      }
+
+      .filter-range > .filter-values,
+      .filter-range > .range-pair {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        background: #f7f9fb;
+      }
+
+      .filter-range > .filter-values:first-of-type {
+        padding-left: 12px;
+        border: 1px solid rgba(31, 42, 51, 0.08);
+        border-right: 0;
+        border-radius: 14px 0 0 14px;
+      }
+
+      .filter-range > .range-pair {
+        border-top: 1px solid rgba(31, 42, 51, 0.08);
+        border-bottom: 1px solid rgba(31, 42, 51, 0.08);
+      }
+
+      .filter-range > .filter-values:last-of-type {
+        padding-right: 12px;
+        border: 1px solid rgba(31, 42, 51, 0.08);
+        border-left: 0;
+        border-radius: 0 14px 14px 0;
+      }
+
+      .filter-values {
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        font-size: 0.88rem;
+        flex: 0 0 auto;
+      }
+
+      .filter-bar input,
+      .filter-bar select,
+      .filter-bar button {
+        width: 100%;
+      }
+
+      .range-pair input[type="range"] {
+        width: 100%;
+      }
+
+      .filter-actions {
+        display: flex;
+        gap: 10px;
+        width: 100%;
+        position: sticky;
+        bottom: -14px;
+        padding-top: 12px;
+        margin-top: 2px;
+        border-top: 1px solid rgba(31, 42, 51, 0.08);
+        background: linear-gradient(to bottom, rgba(255,255,255,0.2), rgba(255,255,255,1) 28%);
+      }
+
+      .filter-actions .filter-row {
+        width: auto;
+        flex: 1 1 0;
+      }
+
+      .filter-clear-desktop-row {
+        display: none;
+      }
+
+      .filter-clear-mobile {
+        display: inline-flex;
+      }
+
+      .filter-apply {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #2f6fda !important;
+        color: #ffffff !important;
+        font-weight: 700;
+        border: 1px solid #255fc0;
+        box-shadow: none;
+        flex: 1 1 auto;
+        border-radius: 10px;
+        min-height: 42px;
+      }
+
+      .filter-apply:hover {
+        background: #255fc0 !important;
+      }
+
+      #clearFiltersMobile {
+        min-height: 42px;
+        border-radius: 10px;
+        background: #eef2f6;
+        color: #1f2a33;
+        font-weight: 700;
+      }
+
+      .filter-row label,
+      .filter-row select {
+        width: 100%;
+      }
+
+      .filter-row > .filter-title {
+        width: 100%;
+        font-size: 0.76rem;
+        letter-spacing: 0.06em;
+      }
+
+      .filter-bar select {
+        min-height: 42px;
+        border-radius: 10px;
+        background: #ffffff;
+      }
+
+      .range-pair {
+        width: auto;
+        flex: 1 1 0;
+        min-width: 120px;
+        height: 28px;
+      }
+
+      .range-fill {
+        top: 12px;
+        height: 5px;
+      }
+
+      .range-pair input[type="range"] {
+        top: 0;
+        height: 28px;
+      }
+
+      .range-pair input[type="range"]::-webkit-slider-runnable-track {
+        height: 5px;
+      }
+
+      .range-pair input[type="range"]::-webkit-slider-thumb {
+        width: 18px;
+        height: 18px;
+        margin-top: -6px;
+      }
+
+      .range-pair input[type="range"]::-moz-range-track {
+        height: 5px;
+      }
+
+      .range-pair input[type="range"]::-moz-range-thumb {
+        width: 18px;
+        height: 18px;
+      }
+
+      .map-shell {
+        display: block;
+        aspect-ratio: auto;
+        min-height: 0;
+      }
+
+      #map {
+        aspect-ratio: 1 / 1;
+        min-height: 320px;
+      }
+
+      .legend-panel {
+        position: absolute;
+        right: 10px;
+        left: 10px;
+        bottom: 10px;
+        width: auto;
+        margin-top: 0;
+        box-shadow: 0 10px 24px rgba(31, 42, 51, 0.14);
+        backdrop-filter: blur(8px);
+      }
+
+      .legend-panel.is-collapsed {
+        min-width: 120px;
+        width: auto;
+        padding: 8px 12px;
+      }
+
+      .legend-section-heading {
+        display: none;
+      }
+
+      .legend-section-heading .legend-subtitle {
+        display: none;
+      }
+
+      .legend-toggle-label {
+        display: none;
+      }
+
+      .legend-content {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 12px;
+        align-items: flex-start;
+      }
+
+      .legend-section {
+        margin: 0;
+        padding: 0;
+        align-self: start;
+      }
+
+      .legend-section:first-child::before {
+        content: "BUILDINGS (SQ FT)";
+        display: block;
+        margin: 0 0 8px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .legend-section + .legend-section {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: 0;
+      }
+
+      .legend-panel.is-collapsed .legend-section-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin: 0;
+      }
+
+      .legend-panel.is-collapsed .legend-toggle-label {
+        display: inline;
+      }
+
+      .legend-panel.is-collapsed .legend-toggle {
+        transform: none;
+      }
+    }
   </style>
 </head>
   <body>
   <div class="page">
     <div class="card">
       <header class="page-header">
-        <p class="eyebrow">Binswanger National Listings</p>
+        <div class="header-top">
+          <p class="eyebrow">Binswanger National Listings</p>
+          <button
+            id="filterToggle"
+            class="filter-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="filterBar"
+            aria-label="Open filters"
+          >
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M4 6h16M4 12h16M4 18h16"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+              <circle cx="9" cy="6" r="2" fill="currentColor" stroke="none" />
+              <circle cx="15" cy="12" r="2" fill="currentColor" stroke="none" />
+              <circle cx="11" cy="18" r="2" fill="currentColor" stroke="none" />
+            </svg>
+          </button>
+        </div>
         <form id="filterBar" class="filter-bar" aria-label="Listing filters">
           <div class="filter-row">
             <span class="filter-title">Deal</span>
@@ -625,8 +1015,16 @@
               </div>
             </div>
           </div>
-          <div class="filter-row">
-            <button id="clearFilters" type="button">Clear</button>
+          <div class="filter-row filter-clear-desktop-row">
+            <button id="clearFiltersDesktop" type="button">Clear</button>
+          </div>
+          <div class="filter-actions">
+            <div class="filter-row">
+              <button id="clearFiltersMobile" class="filter-clear-mobile" type="button">Clear</button>
+            </div>
+            <div class="filter-row">
+              <button id="applyFilters" class="filter-apply" type="button">Apply</button>
+            </div>
           </div>
         </form>
       </header>
@@ -867,6 +1265,13 @@
         return;
       }
 
+      if (window.innerWidth <= 640 && !legendPanel.classList.contains("is-collapsed")) {
+        legendPanel.classList.add("is-collapsed");
+        legendToggle.textContent = "+";
+        legendToggle.setAttribute("aria-expanded", "false");
+        legendToggle.setAttribute("aria-label", "Expand legend");
+      }
+
       legendToggle.addEventListener("click", () => {
         const isCollapsed = legendPanel.classList.toggle("is-collapsed");
         legendToggle.textContent = isCollapsed ? "+" : "-";
@@ -876,6 +1281,83 @@
           isCollapsed ? "Expand legend" : "Minimize legend"
         );
       });
+    }
+
+    function bindFilterToggle() {
+      const filterBar = document.getElementById("filterBar");
+      const filterToggle = document.getElementById("filterToggle");
+      const applyFiltersButton = document.getElementById("applyFilters");
+      const card = document.querySelector(".card");
+      if (!filterBar || !filterToggle) {
+        return;
+      }
+
+      function syncFilterPanelState(isOpen) {
+        filterBar.classList.toggle("is-open", isOpen);
+        card?.classList.toggle("mobile-filters-open", isOpen && window.innerWidth <= 640);
+        filterToggle.setAttribute("aria-expanded", String(isOpen));
+        filterToggle.setAttribute("aria-label", isOpen ? "Close filters" : "Open filters");
+      }
+
+      filterToggle.addEventListener("click", () => {
+        const nextOpen = !filterBar.classList.contains("is-open");
+        syncFilterPanelState(nextOpen);
+      });
+
+      applyFiltersButton?.addEventListener("click", () => {
+        applyFilters();
+        syncFilterPanelState(false);
+      });
+
+      document.addEventListener("click", (event) => {
+        if (window.innerWidth > 900 || !filterBar.classList.contains("is-open")) {
+          return;
+        }
+
+        const target = event.target;
+        if (!(target instanceof Node)) {
+          return;
+        }
+
+        if (filterBar.contains(target) || filterToggle.contains(target)) {
+          return;
+        }
+
+        syncFilterPanelState(false);
+      });
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 900) {
+          syncFilterPanelState(false);
+        }
+      });
+    }
+
+    function updateFilterToggleState() {
+      const filterToggle = document.getElementById("filterToggle");
+      if (!filterToggle || !filterBounds) {
+        return;
+      }
+
+      const typeValue = String(document.getElementById("filterType").value || "").trim().toLowerCase();
+      const propertyTypeValue = String(
+        document.getElementById("filterPropertyType").value || ""
+      ).trim().toLowerCase();
+      const minSf = parseNumericValue(document.getElementById("filterSfMin").value);
+      const maxSf = parseNumericValue(document.getElementById("filterSfMax").value);
+      const minAcreage = parseNumericValue(document.getElementById("filterAcreageMin").value);
+      const maxAcreage = parseNumericValue(document.getElementById("filterAcreageMax").value);
+
+      const hasActiveFilters = Boolean(
+        typeValue ||
+        propertyTypeValue ||
+        minSf > filterBounds.sfMin ||
+        maxSf < filterBounds.sfMax - 0.0001 ||
+        minAcreage > filterBounds.acreageMin ||
+        maxAcreage < filterBounds.acreageMax - 0.0001
+      );
+
+      filterToggle.classList.toggle("has-active-filters", hasActiveFilters);
     }
 
     function pickFirstNonEmpty(properties, keys) {
@@ -1158,8 +1640,26 @@
     let squareFootageRangeSpecs = [];
     let acreageRangeSpecs = [];
 
+    function syncMobilePopupState() {
+      const card = document.querySelector(".card");
+      if (!card) {
+        return;
+      }
+
+      card.classList.toggle("mobile-popup-open", Boolean(popup) && window.innerWidth <= 640);
+    }
+
     function fitToFeatures(features) {
       if (!Array.isArray(features) || features.length === 0) {
+        return;
+      }
+
+      if (window.innerWidth <= 640) {
+        map.easeTo({
+          center: [-98, 39],
+          zoom: 2.15,
+          duration: 0
+        });
         return;
       }
 
@@ -1251,10 +1751,14 @@
         popup = null;
       }
 
+      syncMobilePopupState();
+
       source.setData({
         type: "FeatureCollection",
         features: filteredFeatures
       });
+
+      updateFilterToggleState();
     }
 
     function syncRangePair(kind) {
@@ -1328,6 +1832,7 @@
 
       syncRangePair("Sf");
       syncRangePair("Acreage");
+      updateFilterToggleState();
     }
 
     function bindFilters() {
@@ -1349,7 +1854,7 @@
         syncRangePair("Acreage");
         applyFilters();
       });
-      document.getElementById("clearFilters").addEventListener("click", () => {
+      function clearAllFilters() {
         document.getElementById("filterType").value = "";
         document.getElementById("filterPropertyType").value = "";
         if (filterBounds) {
@@ -1361,7 +1866,10 @@
           syncRangePair("Acreage");
         }
         applyFilters();
-      });
+      }
+
+      document.getElementById("clearFiltersDesktop").addEventListener("click", clearAllFilters);
+      document.getElementById("clearFiltersMobile").addEventListener("click", clearAllFilters);
     }
 
     async function loadListings() {
@@ -1373,6 +1881,7 @@
         delayHighwayVisibility();
         delayStateLabelVisibility();
         bindLegendToggle();
+        bindFilterToggle();
 
         const response = await fetch("./locations.geojson");
         if (!response.ok) {
@@ -1529,6 +2038,10 @@
           }
 
           popup = new mapboxgl.Popup(popupOptions);
+          popup.on("close", () => {
+            popup = null;
+            syncMobilePopupState();
+          });
 
           return popup;
         }
@@ -1577,10 +2090,28 @@
             return;
           }
 
+          const popupLngLat = popup?.getLngLat();
+          const [featureLng, featureLat] = feature.geometry.coordinates || [];
+          const isSamePopupOpen = Boolean(
+            popup &&
+            popupLngLat &&
+            Math.abs(popupLngLat.lng - featureLng) < 0.000001 &&
+            Math.abs(popupLngLat.lat - featureLat) < 0.000001
+          );
+
+          if (isSamePopupOpen) {
+            popup.remove();
+            popup = null;
+            syncMobilePopupState();
+            return;
+          }
+
           createPopupForPoint(event.point)
             .setLngLat(feature.geometry.coordinates)
             .setHTML(popupMarkup(feature.properties || {}))
             .addTo(map);
+
+          syncMobilePopupState();
 
           window.requestAnimationFrame(() => {
             const result = keepPopupInView();
@@ -1596,6 +2127,7 @@
           if (clickedPins.length === 0 && popup) {
             popup.remove();
             popup = null;
+            syncMobilePopupState();
           }
         });
 
@@ -1621,4 +2153,5 @@
   </script>
 </body>
 </html>
+
 
