@@ -200,25 +200,6 @@ function parseAddress(rawAddress) {
   return { cityState, streetAddress };
 }
 
-const STREET_SUFFIX_PATTERN =
-  /\b(st|street|rd|road|ave|avenue|blvd|boulevard|dr|drive|ln|lane|ct|court|cir|circle|pl|place|way|pkwy|parkway|hwy|highway|trl|trail|ter|terrace)\b/i;
-
-function getPrimaryGeocodeStreetAddress(streetAddress) {
-  const normalizedStreetAddress = String(streetAddress || "").trim();
-  const multiAddressMatch = normalizedStreetAddress.match(/^(.*?)\s+(?:&|and)\s+(\d[\s\S]*)$/i);
-
-  if (!multiAddressMatch) {
-    return normalizedStreetAddress;
-  }
-
-  const primaryStreetAddress = multiAddressMatch[1].trim();
-  if (!STREET_SUFFIX_PATTERN.test(primaryStreetAddress)) {
-    return normalizedStreetAddress;
-  }
-
-  return primaryStreetAddress;
-}
-
 function validateParsedAddress(rawAddress, parsedAddress) {
   const cityState = String(parsedAddress.cityState || "").trim();
   const streetAddress = String(parsedAddress.streetAddress || "").trim();
@@ -240,7 +221,9 @@ function validateParsedAddress(rawAddress, parsedAddress) {
   // Parcel/block descriptions are too ambiguous to geocode reliably unless
   // they also include a conventional street suffix.
   if (/\bblock\b/i.test(streetAddress)) {
-    const hasStreetSuffix = STREET_SUFFIX_PATTERN.test(streetAddress);
+    const hasStreetSuffix = /\b(st|street|rd|road|ave|avenue|blvd|boulevard|dr|drive|ln|lane|ct|court|cir|circle|pl|place|way|pkwy|parkway|hwy|highway|trl|trail|ter|terrace)\b/i.test(
+      streetAddress
+    );
     if (!hasStreetSuffix) {
       return "parcel/block entry is not a normal street address";
     }
@@ -393,8 +376,7 @@ async function main() {
       continue;
     }
 
-    const geocodeStreetAddress = getPrimaryGeocodeStreetAddress(parsedAddress.streetAddress);
-    const query = `${geocodeStreetAddress}, ${parsedAddress.cityState}`;
+    const query = `${parsedAddress.streetAddress.split(/\s+(?:&|and)\s+\d/i)[0].trim()}, ${parsedAddress.cityState}`;
     const properties = buildProperties(row.values, header.columnMap, parsedAddress);
 
     try {
