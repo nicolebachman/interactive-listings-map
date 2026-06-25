@@ -1546,38 +1546,33 @@
         pickFirstNonEmpty(properties, ["asking_price", "Asking Price"])
       );
       const leaseRate = pickFirstNonEmpty(properties, ["lease_rate", "Lease Rate"]);
-      const landlordCompany = pickFirstNonEmpty(properties, [
-        "landlord_company",
-        "Landlord Company/Seller Company"
-      ]);
-      const squareFootage = pickFirstNonEmpty(properties, ["square_footage", "Square Footage"]);
-      const acreage = pickFirstNonEmpty(properties, ["acreage", "Acreage"]);
-      const leaseSquareFootage = pickFirstNonEmpty(properties, [
-        "lease_square_footage",
-        "Lease Square Footage"
-      ]);
-      const effectiveDate = pickFirstNonEmpty(properties, [
-        "listing_effective_date",
-        "Listing Effective Date"
-      ]);
-      const expirationDate = pickFirstNonEmpty(properties, [
-        "listing_expiration_date",
-        "Listing Expiration Date"
-      ]);
-      const isLandListing = !String(squareFootage).trim() && String(acreage).trim();
-      const popupMetaValue = isLandListing
-        ? `${acreage} AC`
-        : `${squareFootage || "N/A"} SF`;
-      const isLease = String(recordType).trim().toLowerCase() === "lease";
-      const fields = [
-        ["Broker", brokerName],
-        ["Record Type", recordType],
-        ["Asking Price", askingPrice],
-        ["Acreage", acreage],
-        ["Landlord/Seller", landlordCompany],
-        ["Effective Date", effectiveDate],
-        ["Expiration Date", expirationDate]
-      ];
+const squareFootage = pickFirstNonEmpty(properties, ["square_footage", "Square Footage"]);
+const acreage = pickFirstNonEmpty(properties, ["acreage", "Acreage"]);
+const leaseSquareFootage = pickFirstNonEmpty(properties, [
+  "lease_square_footage",
+  "Lease Square Footage"
+]);
+const effectiveDate = pickFirstNonEmpty(properties, [
+  "listing_effective_date",
+  "Listing Effective Date"
+]);
+const expirationDate = pickFirstNonEmpty(properties, [
+  "listing_expiration_date",
+  "Listing Expiration Date"
+]);
+const isLandListing = !String(squareFootage).trim() && String(acreage).trim();
+const popupMetaValue = isLandListing
+  ? `${acreage} AC`
+  : `${squareFootage || "N/A"} SF`;
+const isLease = String(recordType).trim().toLowerCase() === "lease";
+const fields = [
+  ["Broker", brokerName],
+  ["Record Type", recordType],
+  ["Asking Price", askingPrice],
+  ["Acreage", acreage],
+  ["Effective Date", effectiveDate],
+  ["Expiration Date", expirationDate]
+];
 
       if (isLease) {
         fields.splice(2, 1);
