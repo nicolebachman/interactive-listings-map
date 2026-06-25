@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
   <title>Interactive Listings Map</title>
   <link
     href="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.css"
@@ -1146,6 +1147,18 @@
 
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.js"></script>
   <script>
+    if (window.top === window.self) {
+      document.body.innerHTML = `
+        <div style="min-height:100vh;display:grid;place-items:center;padding:24px;background:#f7f4ef;color:#1f2a33;font-family:Georgia,'Times New Roman',serif;text-align:center;">
+          <div>
+            <h1 style="margin:0 0 12px;font-size:1.5rem;font-weight:500;">Dashboard Access Only</h1>
+            <p style="margin:0;font-size:1rem;line-height:1.5;">This map must be viewed inside the company dashboard.</p>
+          </div>
+        </div>
+      `;
+      throw new Error("This map must be viewed inside an iframe.");
+    }
+
     mapboxgl.accessToken = "pk.eyJ1Ijoibmljb2xlYmFjaG1hbiIsImEiOiJjbXE5eHl1MGYwMGM2MnJwbm13YjJveGRuIn0.E1WbrTh7gLcMrzhnWdSI5A";
 
     const map = new mapboxgl.Map({
