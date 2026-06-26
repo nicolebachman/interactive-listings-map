@@ -14,10 +14,14 @@ async function loadEnvFile(filePath) {
     const contents = await fs.readFile(filePath, "utf8");
     for (const rawLine of contents.split(/\r?\n/)) {
       const line = rawLine.trim();
-      if (!line || line.startsWith("#")) continue;
+      if (!line || line.startsWith("#")) {
+        continue;
+      }
 
       const separatorIndex = line.indexOf("=");
-      if (separatorIndex === -1) continue;
+      if (separatorIndex === -1) {
+        continue;
+      }
 
       const key = line.slice(0, separatorIndex).trim();
       let value = line.slice(separatorIndex + 1).trim();
@@ -34,7 +38,9 @@ async function loadEnvFile(filePath) {
       }
     }
   } catch (error) {
-    if (error.code !== "ENOENT") throw error;
+    if (error.code !== "ENOENT") {
+      throw error;
+    }
   }
 }
 
@@ -85,14 +91,14 @@ function parseWorksheet(xml, sharedStrings) {
       const attributes = cellMatch[1] || cellMatch[2] || "";
       const body = cellMatch[3] || "";
       const refMatch = attributes.match(/\br="([^"]+)"/);
-      if (!refMatch) continue;
+      if (!refMatch) {
+        continue;
+      }
 
       const ref = refMatch[1];
       const col = columnLetters(ref);
-
       const typeMatch = attributes.match(/\bt="([^"]+)"/);
       const type = typeMatch ? typeMatch[1] : "";
-
       const valueMatch = body.match(/<v>([\s\S]*?)<\/v>/);
       const inlineMatch = body.match(/<t\b[^>]*>([\s\S]*?)<\/t>/);
 
@@ -125,24 +131,23 @@ function normalizeHeader(value) {
 function findHeaderRow(rows, headerAliases) {
   for (const row of rows) {
     const normalizedByColumn = Object.fromEntries(
-      Object.entries(row.values).map(([col, value]) => [
-        col,
-        normalizeHeader(value)
-      ])
+      Object.entries(row.values).map(([col, value]) => [col, normalizeHeader(value)])
     );
 
-    for (const [, aliases] of Object.entries(headerAliases)) {
-      const foundColumn = Object.entries(normalizedByColumn).find(([, v]) =>
-        aliases.includes(v)
+    for (const [fieldName, aliases] of Object.entries(headerAliases)) {
+      const foundColumn = Object.entries(normalizedByColumn).find(([, value]) =>
+        aliases.includes(value)
       );
-      if (!foundColumn) continue;
+      if (!foundColumn) {
+        continue;
+      }
 
       const columnMap = {};
       let foundAll = true;
 
-      for (const [, targetAliases] of Object.entries(headerAliases)) {
-        const match = Object.entries(normalizedByColumn).find(([, v]) =>
-          targetAliases.includes(v)
+      for (const [targetField, targetAliases] of Object.entries(headerAliases)) {
+        const match = Object.entries(normalizedByColumn).find(([, value]) =>
+          targetAliases.includes(value)
         );
         if (!match) {
           foundAll = false;
@@ -163,14 +168,14 @@ function findHeaderRow(rows, headerAliases) {
 function mapOptionalColumns(normalizedByColumn, optionalHeaderAliases) {
   const columnMap = {};
 
-  for (const [targetField, targetAliases] of Object.entries(
-    optionalHeaderAliases
-  )) {
-    const match = Object.entries(normalizedByColumn).find(([, v]) =>
-      targetAliases.includes(v)
+  for (const [targetField, targetAliases] of Object.entries(optionalHeaderAliases)) {
+    const match = Object.entries(normalizedByColumn).find(([, value]) =>
+      targetAliases.includes(value)
     );
 
-    if (match) columnMap[targetField] = match[0];
+    if (match) {
+      columnMap[targetField] = match[0];
+    }
   }
 
   return columnMap;
@@ -179,15 +184,38 @@ function mapOptionalColumns(normalizedByColumn, optionalHeaderAliases) {
 function parseAddress(rawAddress) {
   const parts = String(rawAddress || "")
     .split(/\s+-\s+/)
-    .map((p) => p.trim())
+    .map((part) => part.trim())
     .filter(Boolean);
 
-  if (parts.length < 2) return null;
+  if (parts.length < 2) {
+    return null;
+  }
 
   const [cityState, streetAddress] = parts;
-  if (!cityState || !streetAddress) return null;
+  if (!cityState || !streetAddress) {
+    return null;
+  }
 
   return { cityState, streetAddress };
+}
+
+const STREET_SUFFIX_PATTERN =
+  /\b(st|street|rd|road|ave|avenue|blvd|boulevard|dr|drive|ln|lane|ct|court|cir|circle|pl|place|way|pkwy|parkway|hwy|highway|trl|trail|ter|terrace)\b/i;
+
+function getPrimaryGeocodeStreetAddress(streetAddress) {
+  const normalizedStreetAddress = String(streetAddress || "").trim();
+  const multiAddressMatch = normalizedStreetAddress.match(/^(.*?)\s+(?:&|and)\s+(\d[\s\S]*)$/i);
+
+  if (!multiAddressMatch) {
+    return normalizedStreetAddress;
+  }
+
+  const primaryStreetAddress = multiAddressMatch[1].trim();
+  if (!STREET_SUFFIX_PATTERN.test(primaryStreetAddress)) {
+    return normalizedStreetAddress;
+  }
+
+  return primaryStreetAddress;
 }
 
 function validateParsedAddress(rawAddress, parsedAddress) {
@@ -198,24 +226,35 @@ function validateParsedAddress(rawAddress, parsedAddress) {
     return "missing city/state or street address";
   }
 
+  // Regional rollups like "NC, VA, TN" are not geocodable street addresses.
   if ((cityState.match(/,/g) || []).length > 1) {
-    return "city/state looks like a region list";
+    return "city/state looks like a region list, not a single place";
   }
 
-  if (/\bportfolio\b/i.test(rawAddress)) {
-    return "portfolio entry is not a single address";
+  // Portfolio and rollup entries should be skipped instead of guessed.
+  if (/\bportfolio\b/i.test(rawAddress) || /\bportfolio\b/i.test(streetAddress)) {
+    return "portfolio entry is not a single street address";
   }
 
+  // Parcel/block descriptions are too ambiguous to geocode reliably unless
+  // they also include a conventional street suffix.
+  if (/\bblock\b/i.test(streetAddress)) {
+    const hasStreetSuffix = STREET_SUFFIX_PATTERN.test(streetAddress);
+    if (!hasStreetSuffix) {
+      return "parcel/block entry is not a normal street address";
+    }
+  }
+
+  // For this dataset, valid listing addresses should include a street number.
   if (!/\d/.test(streetAddress)) {
-    return "missing street number";
+    return "street address does not include a street number";
   }
 
   return "";
 }
 
 function buildProperties(rowValues, columnMap, parsedAddress) {
-  const owner = rowValues[columnMap.owner] || ""; // broker name (KEEP)
-
+  const owner = rowValues[columnMap.owner] || "";
   const dealName = rowValues[columnMap.addressDealNumber] || "";
   const recordType = rowValues[columnMap.recordType] || "";
   const askingPrice = rowValues[columnMap.askingPrice] || "";
@@ -223,21 +262,14 @@ function buildProperties(rowValues, columnMap, parsedAddress) {
   const listingEffectiveDate = rowValues[columnMap.listingEffectiveDate] || "";
   const listingExpirationDate = rowValues[columnMap.listingExpirationDate] || "";
   const squareFootage = rowValues[columnMap.squareFootage] || "";
-
   const leaseSquareFootage = columnMap.leaseSquareFootage
-    ? rowValues[columnMap.leaseSquareFootage] || ""
+    ? (rowValues[columnMap.leaseSquareFootage] || "")
     : "";
-
-  const acreage = columnMap.acreage
-    ? rowValues[columnMap.acreage] || ""
-    : "";
-
+  const acreage = columnMap.acreage ? (rowValues[columnMap.acreage] || "") : "";
   const address = `${parsedAddress.streetAddress}, ${parsedAddress.cityState}`;
 
   return {
     Owner: owner,
-    broker_name: owner,
-
     Property: dealName,
     "Deal: Deal Name": dealName,
     "Deal: Record Type": recordType,
@@ -248,7 +280,10 @@ function buildProperties(rowValues, columnMap, parsedAddress) {
     "Square Footage": squareFootage,
     Acreage: acreage,
     "Lease Square Footage": leaseSquareFootage,
-
+    broker_name: owner,
+    address,
+    city_state: parsedAddress.cityState,
+    street_address: parsedAddress.streetAddress,
     deal_name: dealName,
     record_type: recordType,
     asking_price: askingPrice,
@@ -257,28 +292,27 @@ function buildProperties(rowValues, columnMap, parsedAddress) {
     listing_expiration_date: listingExpirationDate,
     square_footage: squareFootage,
     acreage,
-
-    address,
-    city_state: parsedAddress.cityState,
-    street_address: parsedAddress.streetAddress
+    lease_square_footage: leaseSquareFootage
   };
 }
 
 async function geocodeAddress(query, mapboxToken) {
   const url =
-    `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
-      query
-    )}.json` +
+    `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json` +
     `?access_token=${encodeURIComponent(mapboxToken)}` +
     "&limit=1&autocomplete=false";
 
   const response = await fetch(url);
-  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  if (!response.ok) {
+    throw new Error(`Mapbox returned HTTP ${response.status}`);
+  }
 
   const payload = await response.json();
-  const feature = payload.features?.[0];
+  const feature = payload.features && payload.features[0];
+  if (!feature || !Array.isArray(feature.center) || feature.center.length < 2) {
+    return null;
+  }
 
-  if (!feature?.center) return null;
   return feature.center;
 }
 
@@ -287,8 +321,9 @@ async function main() {
 
   const mapboxToken = process.env.MAPBOX_TOKEN;
   if (!mapboxToken) {
-    console.error("Missing MAPBOX_TOKEN");
-    process.exit(1);
+    console.error("MAPBOX_TOKEN is required. Add it to .env or your shell environment.");
+    process.exitCode = 1;
+    return;
   }
 
   const sharedStringsXml = readZipEntry(workbookPath, "xl/sharedStrings.xml");
@@ -298,7 +333,7 @@ async function main() {
   const rows = parseWorksheet(worksheetXml, sharedStrings);
 
   const requiredHeaderAliases = {
-    owner: ["owner"], // broker retained
+    owner: ["owner"],
     addressDealNumber: ["deal: deal name", "property"],
     recordType: ["deal: record type"],
     askingPrice: ["asking price"],
@@ -307,7 +342,6 @@ async function main() {
     listingExpirationDate: ["listing expiration date"],
     squareFootage: ["square footage"]
   };
-
   const optionalHeaderAliases = {
     leaseSquareFootage: ["lease square footage"],
     acreage: ["acreage"]
@@ -315,19 +349,15 @@ async function main() {
 
   const header = findHeaderRow(rows, requiredHeaderAliases);
   if (!header) {
-    console.error("Header row not found");
-    process.exit(1);
+    console.error("Could not find the expected header row in test.xlsx.");
+    process.exitCode = 1;
+    return;
   }
 
-  const headerRow = rows.find((r) => r.rowNumber === header.rowNumber);
-
+  const headerRow = rows.find((row) => row.rowNumber === header.rowNumber);
   const normalizedByColumn = Object.fromEntries(
-    Object.entries(headerRow.values).map(([col, v]) => [
-      col,
-      normalizeHeader(v)
-    ])
+    Object.entries(headerRow?.values || {}).map(([col, value]) => [col, normalizeHeader(value)])
   );
-
   header.columnMap = {
     ...header.columnMap,
     ...mapOptionalColumns(normalizedByColumn, optionalHeaderAliases)
@@ -335,32 +365,47 @@ async function main() {
 
   const features = [];
   const failedRows = [];
+  const geocodeFailureCounts = new Map();
+  let geocodeAttempts = 0;
+  let geocodeFailures = 0;
+  let skippedRows = 0;
 
   for (const row of rows) {
-    if (row.rowNumber <= header.rowNumber) continue;
+    if (row.rowNumber <= header.rowNumber) {
+      continue;
+    }
 
     const rawAddress = row.values[header.columnMap.addressDealNumber] || "";
-    if (!rawAddress) continue;
+    if (!rawAddress) {
+      continue;
+    }
 
     const parsedAddress = parseAddress(rawAddress);
     if (!parsedAddress) {
-      failedRows.push(`Row ${row.rowNumber}: bad address`);
+      failedRows.push(`Row ${row.rowNumber}: could not parse address "${rawAddress}"`);
       continue;
     }
 
     const invalidReason = validateParsedAddress(rawAddress, parsedAddress);
     if (invalidReason) {
-      failedRows.push(`Row ${row.rowNumber}: ${invalidReason}`);
+      failedRows.push(`Row ${row.rowNumber}: skipped "${rawAddress}" (${invalidReason})`);
       continue;
     }
 
-    const query = `${parsedAddress.streetAddress.split(/\s+(?:&|and)\s+\d/i)[0].trim()}, ${parsedAddress.cityState}`;
+    const geocodeStreetAddress = getPrimaryGeocodeStreetAddress(parsedAddress.streetAddress);
+    const query = `${geocodeStreetAddress}, ${parsedAddress.cityState}`;
     const properties = buildProperties(row.values, header.columnMap, parsedAddress);
+    geocodeAttempts += 1;
 
     try {
       const coordinates = await geocodeAddress(query, mapboxToken);
       if (!coordinates) {
-        failedRows.push(`Row ${row.rowNumber}: no geocode`);
+        geocodeFailures += 1;
+        geocodeFailureCounts.set(
+          "no geocoding result",
+          (geocodeFailureCounts.get("no geocoding result") || 0) + 1
+        );
+        failedRows.push(`Row ${row.rowNumber}: no geocoding result for "${query}"`);
         continue;
       }
 
@@ -372,31 +417,66 @@ async function main() {
           coordinates
         }
       });
-    } catch (e) {
-      failedRows.push(`Row ${row.rowNumber}: ${e.message}`);
+    } catch (error) {
+      geocodeFailures += 1;
+      const failureReason = error && error.message ? error.message : "unknown error";
+      geocodeFailureCounts.set(
+        failureReason,
+        (geocodeFailureCounts.get(failureReason) || 0) + 1
+      );
+      failedRows.push(`Row ${row.rowNumber}: geocoding failed for "${query}" (${error.message})`);
     }
   }
 
-  const geojson = { type: "FeatureCollection", features };
+  skippedRows = failedRows.length - geocodeFailures;
 
-  await fs.writeFile(
-    outputGeoJsonPath,
-    JSON.stringify(geojson, null, 2) + "\n",
-    "utf8"
-  );
+  const systemicFailureReasons = [...geocodeFailureCounts.entries()]
+    .sort((left, right) => right[1] - left[1])
+    .map(([reason, count]) => `${reason}: ${count}`)
+    .join("; ");
+  const systemicGeocodeFailure =
+    geocodeAttempts > 0 &&
+    geocodeFailures === geocodeAttempts &&
+    features.length === 0;
 
+  if (systemicGeocodeFailure) {
+    const summaryLines = [
+      `Aborted update to avoid overwriting ${path.basename(outputGeoJsonPath)} with zero features.`,
+      `Geocode attempts: ${geocodeAttempts}`,
+      `Geocode failures: ${geocodeFailures}`,
+      `Skipped rows before geocoding: ${Math.max(skippedRows, 0)}`,
+      `Failure summary: ${systemicFailureReasons || "unknown"}`
+    ];
+
+    await fs.writeFile(failedLogPath, `${summaryLines.join("\n")}\n\n${failedRows.join("\n")}\n`, "utf8");
+    console.error(summaryLines.join("\n"));
+    process.exitCode = 1;
+    return;
+  }
+
+  const geojson = {
+    type: "FeatureCollection",
+    features
+  };
+
+  await fs.writeFile(outputGeoJsonPath, `${JSON.stringify(geojson, null, 2)}\n`, "utf8");
   await fs.writeFile(
     failedLogPath,
-    failedRows.length ? failedRows.join("\n") + "\n" : "",
+    [
+      `Geocode attempts: ${geocodeAttempts}`,
+      `Features written: ${features.length}`,
+      `Geocode failures: ${geocodeFailures}`,
+      `Skipped rows before geocoding: ${Math.max(skippedRows, 0)}`,
+      systemicFailureReasons ? `Failure summary: ${systemicFailureReasons}` : ""
+    ].filter(Boolean).join("\n") + (failedRows.length ? `\n\n${failedRows.join("\n")}\n` : "\n"),
     "utf8"
   );
 
-  console.error(
-    `Wrote ${features.length} features. Failed ${failedRows.length} rows.`
-  );
+  console.error(`Wrote ${features.length} geocoded features to ${path.basename(outputGeoJsonPath)}.`);
+  console.error(`Logged ${failedRows.length} failed rows to ${path.basename(failedLogPath)}.`);
 }
 
-main().catch((e) => {
-  console.error(e);
-  process.exit(1);
+main().catch((error) => {
+  console.error(error.message);
+  process.exitCode = 1;
 });
