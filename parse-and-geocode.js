@@ -148,7 +148,7 @@ function findHeaderRow(rows, headerAliases) {
           foundAll = false;
           break;
         }
-        columnMap[targetAliases] = match[0];
+        columnMap[targetField] = match[0];
       }
 
       if (foundAll) {
